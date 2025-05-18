@@ -24,8 +24,8 @@ This project combines symbolic knowledge representation (RDF) with large languag
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yusufdanis/counterfactual-political-simulator.git
-cd counterfactual-political-simulator
+git clone https://github.com/wjcesaretti/altergeist.git
+cd altergeist
 ```
 
 2. Create and activate a virtual environment:
