@@ -10,14 +10,14 @@ This project combines symbolic knowledge representation (RDF) with large languag
 
 - RDF knowledge graph of political philosophers and their beliefs
 - Context transformation engine for simulating alternate timelines
-- LLM-powered response generation with ideology preservation
+- Llama 3.1-powered response generation with ideology preservation
 - CLI interface for easy interaction
 - Automatic response logging and ideology scoring
 
 ## Prerequisites
 
 - Python 3.8+
-- OpenAI API key
+- Hugging Face account and access token
 - RDFLib and other dependencies (see requirements.txt)
 
 ## Installation
@@ -30,26 +30,35 @@ cd altergeist
 
 2. Create and activate a virtual environment:
 ```bash
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 3. Install dependencies:
 ```bash
-pip install -r requirements.txt
+python3 -m pip install --break-system-packages -r requirements.txt
 ```
 
-4. Set up your OpenAI API key:
-```bash
-export OPENAI_API_KEY='your-api-key-here'
-```
+4. Set up your Hugging Face token:
+   - Create an account at [huggingface.co](https://huggingface.co)
+   - Go to Settings → Access Tokens
+   - Create a new token with read access
+   - Set the token in your environment:
+   ```bash
+   export HUGGINGFACE_TOKEN='your-token-here'
+   ```
+   - For permanent setup, add to your shell profile:
+   ```bash
+   echo 'export HUGGINGFACE_TOKEN="your-token-here"' >> ~/.zshrc  # or ~/.bashrc
+   source ~/.zshrc  # or source ~/.bashrc
+   ```
 
 ## Usage
 
 Run simulations using the CLI:
 
 ```bash
-python app/run.py Hobbes --year 1946 --region Germany --event PostWWII --question "What is the role of the state in AI governance?"
+python3 -m app.run simulate Hobbes --year 1946 --region "Germany" --event "PostWWII" --question "What is the role of the state in AI governance?"
 ```
 
 ### Arguments
@@ -59,7 +68,7 @@ python app/run.py Hobbes --year 1946 --region Germany --event PostWWII --questio
 - `--region`: New region (optional)
 - `--event`: Historical event (optional)
 - `--question`: Question to ask the philosopher
-- `--model`: LLM model to use (default: gpt-4)
+- `--model`: LLM model to use (default: meta-llama/Llama-3.1-70B-Instruct)
 - `--temperature`: LLM temperature (default: 0.7)
 
 ## Development
