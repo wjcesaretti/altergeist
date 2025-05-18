@@ -1,0 +1,528 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix ex: <http://example.org/philosophy/> .
+
+# Ancient Political Thinkers
+ex:Plato
+    rdf:type ex:Philosopher ;
+    rdfs:label "Plato" ;
+    dct:date "-428"^^xsd:gYear ;
+    ex:believesIn ex:PhilosopherKing ;
+    ex:believesIn ex:Forms ;
+    ex:believesIn ex:Justice ;
+    ex:believesIn ex:VirtueEthics ;
+    ex:believesIn ex:Education ;
+    ex:keyConcept "The Republic" ;
+    ex:keyConcept "Allegory of the Cave" ;
+    ex:keyConcept "Theory of Forms" ;
+    ex:keyConcept "Guardian Class" ;
+    ex:context ex:ClassicalAthens ;
+    ex:context ex:PeloponnesianWar ;
+    ex:ideologicalCluster ex:ClassicalRepublicanism ;
+    ex:influenced ex:Aristotle ;
+    ex:influenced ex:Augustine ;
+    ex:influenced ex:More ;
+    ex:influencedBy ex:Socrates .
+
+ex:Aristotle
+    rdf:type ex:Philosopher ;
+    rdfs:label "Aristotle" ;
+    dct:date "-384"^^xsd:gYear ;
+    ex:believesIn ex:VirtueEthics ;
+    ex:believesIn ex:Polis ;
+    ex:believesIn ex:GoldenMean ;
+    ex:believesIn ex:NaturalLaw ;
+    ex:believesIn ex:ConstitutionalGovernment ;
+    ex:keyConcept "Nicomachean Ethics" ;
+    ex:keyConcept "Politics" ;
+    ex:keyConcept "Eudaimonia" ;
+    ex:keyConcept "Practical Wisdom" ;
+    ex:context ex:ClassicalGreece ;
+    ex:context ex:MacedonianEmpire ;
+    ex:ideologicalCluster ex:ClassicalRepublicanism ;
+    ex:influenced ex:Aquinas ;
+    ex:influenced ex:MacIntyre ;
+    ex:influenced ex:Arendt ;
+    ex:influencedBy ex:Plato .
+
+# Medieval Thinkers
+ex:Augustine
+    rdf:type ex:Philosopher ;
+    rdfs:label "Augustine of Hippo" ;
+    dct:date "354"^^xsd:gYear ;
+    ex:believesIn ex:DivineLaw ;
+    ex:believesIn ex:TwoCities ;
+    ex:believesIn ex:OriginalSin ;
+    ex:believesIn ex:Predestination ;
+    ex:believesIn ex:JustWar ;
+    ex:keyConcept "City of God" ;
+    ex:keyConcept "Just War" ;
+    ex:keyConcept "Confessions" ;
+    ex:keyConcept "Grace" ;
+    ex:context ex:LateAntiquity ;
+    ex:context ex:FallOfRome ;
+    ex:ideologicalCluster ex:ChristianPoliticalThought ;
+    ex:influenced ex:Aquinas ;
+    ex:influenced ex:Luther ;
+    ex:influencedBy ex:Plato ;
+    ex:influencedBy ex:Cicero .
+
+ex:Aquinas
+    rdf:type ex:Philosopher ;
+    rdfs:label "Thomas Aquinas" ;
+    dct:date "1225"^^xsd:gYear ;
+    ex:believesIn ex:NaturalLaw ;
+    ex:believesIn ex:DivineLaw ;
+    ex:believesIn ex:VirtueEthics ;
+    ex:believesIn ex:JustWar ;
+    ex:believesIn ex:CommonGood ;
+    ex:keyConcept "Summa Theologica" ;
+    ex:keyConcept "Just War Theory" ;
+    ex:keyConcept "Natural Law" ;
+    ex:keyConcept "Eternal Law" ;
+    ex:context ex:HighMiddleAges ;
+    ex:context ex:Scholasticism ;
+    ex:ideologicalCluster ex:ChristianPoliticalThought ;
+    ex:influenced ex:Suarez ;
+    ex:influenced ex:Maritain ;
+    ex:influencedBy ex:Aristotle ;
+    ex:influencedBy ex:Augustine .
+
+# Early Modern Thinkers
+ex:Hobbes
+    rdf:type ex:Philosopher ;
+    rdfs:label "Thomas Hobbes" ;
+    dct:date "1588"^^xsd:gYear ;
+    ex:believesIn ex:AuthoritarianSovereignty ;
+    ex:believesIn ex:SocialContract ;
+    ex:believesIn ex:NaturalLaw ;
+    ex:believesIn ex:StateOfNature ;
+    ex:believesIn ex:Materialism ;
+    ex:keyConcept "Leviathan" ;
+    ex:keyConcept "State of Nature" ;
+    ex:keyConcept "Social Contract" ;
+    ex:keyConcept "Absolute Sovereignty" ;
+    ex:context ex:EnglishCivilWar ;
+    ex:context ex:AgeOfAbsolutism ;
+    ex:context ex:ScientificRevolution ;
+    ex:ideologicalCluster ex:Realism ;
+    ex:influenced ex:Rousseau ;
+    ex:influenced ex:Schmitt ;
+    ex:influencedBy ex:Galileo ;
+    ex:influencedBy ex:Bacon .
+
+ex:Locke
+    rdf:type ex:Philosopher ;
+    rdfs:label "John Locke" ;
+    dct:date "1632"^^xsd:gYear ;
+    ex:believesIn ex:NaturalRights ;
+    ex:believesIn ex:SocialContract ;
+    ex:believesIn ex:Liberalism ;
+    ex:believesIn ex:PropertyRights ;
+    ex:believesIn ex:ReligiousToleration ;
+    ex:keyConcept "Tabula Rasa" ;
+    ex:keyConcept "Property Rights" ;
+    ex:keyConcept "Natural Rights" ;
+    ex:keyConcept "Limited Government" ;
+    ex:context ex:GloriousRevolution ;
+    ex:context ex:Enlightenment ;
+    ex:context ex:AgeOfDiscovery ;
+    ex:ideologicalCluster ex:Liberalism ;
+    ex:influenced ex:Jefferson ;
+    ex:influenced ex:Montesquieu ;
+    ex:influenced ex:Smith ;
+    ex:influencedBy ex:Grotius ;
+    ex:influencedBy ex:Boyle .
+
+ex:Rousseau
+    rdf:type ex:Philosopher ;
+    rdfs:label "Jean-Jacques Rousseau" ;
+    dct:date "1712"^^xsd:gYear ;
+    ex:believesIn ex:GeneralWill ;
+    ex:believesIn ex:SocialContract ;
+    ex:believesIn ex:PopularSovereignty ;
+    ex:believesIn ex:NaturalGoodness ;
+    ex:believesIn ex:DirectDemocracy ;
+    ex:keyConcept "Noble Savage" ;
+    ex:keyConcept "Civil Religion" ;
+    ex:keyConcept "General Will" ;
+    ex:keyConcept "Social Contract" ;
+    ex:context ex:Enlightenment ;
+    ex:context ex:FrenchRevolution ;
+    ex:context ex:AgeOfReason ;
+    ex:ideologicalCluster ex:Republicanism ;
+    ex:influenced ex:Robespierre ;
+    ex:influenced ex:Kant ;
+    ex:influencedBy ex:Hobbes ;
+    ex:influencedBy ex:Montesquieu .
+
+# Modern Thinkers
+ex:Marx
+    rdf:type ex:Philosopher ;
+    rdfs:label "Karl Marx" ;
+    dct:date "1818"^^xsd:gYear ;
+    ex:believesIn ex:HistoricalMaterialism ;
+    ex:believesIn ex:ClassStruggle ;
+    ex:believesIn ex:Communism ;
+    ex:believesIn ex:Alienation ;
+    ex:believesIn ex:DialecticalMaterialism ;
+    ex:keyConcept "Dialectical Materialism" ;
+    ex:keyConcept "Surplus Value" ;
+    ex:keyConcept "Class Consciousness" ;
+    ex:keyConcept "Base and Superstructure" ;
+    ex:context ex:IndustrialRevolution ;
+    ex:context ex:AgeOfRevolution ;
+    ex:context ex:RiseOfCapitalism ;
+    ex:ideologicalCluster ex:Communism ;
+    ex:influenced ex:Engels ;
+    ex:influenced ex:Lenin ;
+    ex:influencedBy ex:Hegel ;
+    ex:influencedBy ex:Smith .
+
+ex:Mill
+    rdf:type ex:Philosopher ;
+    rdfs:label "John Stuart Mill" ;
+    dct:date "1806"^^xsd:gYear ;
+    ex:believesIn ex:Utilitarianism ;
+    ex:believesIn ex:Liberalism ;
+    ex:believesIn ex:IndividualLiberty ;
+    ex:believesIn ex:RepresentativeDemocracy ;
+    ex:believesIn ex:WomenRights ;
+    ex:keyConcept "Harm Principle" ;
+    ex:keyConcept "Liberty" ;
+    ex:keyConcept "Greatest Happiness" ;
+    ex:keyConcept "Market Economy" ;
+    ex:context ex:IndustrialRevolution ;
+    ex:context ex:VictorianEra ;
+    ex:context ex:ReformMovement ;
+    ex:ideologicalCluster ex:Liberalism ;
+    ex:influenced ex:Rawls ;
+    ex:influenced ex:Sidgwick ;
+    ex:influencedBy ex:Bentham ;
+    ex:influencedBy ex:Coleridge .
+
+ex:Nietzsche
+    rdf:type ex:Philosopher ;
+    rdfs:label "Friedrich Nietzsche" ;
+    dct:date "1844"^^xsd:gYear ;
+    ex:believesIn ex:WillToPower ;
+    ex:believesIn ex:EternalRecurrence ;
+    ex:believesIn ex:MasterMorality ;
+    ex:believesIn ex:Perspectivism ;
+    ex:believesIn ex:SelfOvercoming ;
+    ex:keyConcept "Übermensch" ;
+    ex:keyConcept "God is Dead" ;
+    ex:keyConcept "Will to Power" ;
+    ex:keyConcept "Eternal Recurrence" ;
+    ex:context ex:Modernity ;
+    ex:context ex:FinDeSiecle ;
+    ex:context ex:DeclineOfReligion ;
+    ex:ideologicalCluster ex:Existentialism ;
+    ex:influenced ex:Foucault ;
+    ex:influenced ex:Heidegger ;
+    ex:influencedBy ex:Schopenhauer ;
+    ex:influencedBy ex:Wagner .
+
+# Contemporary Thinkers
+ex:Rawls
+    rdf:type ex:Philosopher ;
+    rdfs:label "John Rawls" ;
+    dct:date "1921"^^xsd:gYear ;
+    ex:believesIn ex:JusticeAsFairness ;
+    ex:believesIn ex:OriginalPosition ;
+    ex:believesIn ex:LiberalEgalitarianism ;
+    ex:believesIn ex:PublicReason ;
+    ex:believesIn ex:OverlappingConsensus ;
+    ex:keyConcept "Veil of Ignorance" ;
+    ex:keyConcept "Difference Principle" ;
+    ex:keyConcept "Original Position" ;
+    ex:keyConcept "Reflective Equilibrium" ;
+    ex:context ex:ColdWar ;
+    ex:context ex:PostWarLiberalism ;
+    ex:context ex:CivilRightsMovement ;
+    ex:ideologicalCluster ex:Liberalism ;
+    ex:influenced ex:Sandel ;
+    ex:influenced ex:Nozick ;
+    ex:influencedBy ex:Kant ;
+    ex:influencedBy ex:Mill .
+
+ex:Foucault
+    rdf:type ex:Philosopher ;
+    rdfs:label "Michel Foucault" ;
+    dct:date "1926"^^xsd:gYear ;
+    ex:believesIn ex:PowerKnowledge ;
+    ex:believesIn ex:Discipline ;
+    ex:believesIn ex:Governmentality ;
+    ex:believesIn ex:Biopower ;
+    ex:believesIn ex:ArchaeologyOfKnowledge ;
+    ex:keyConcept "Biopower" ;
+    ex:keyConcept "Archaeology of Knowledge" ;
+    ex:keyConcept "Discipline and Punish" ;
+    ex:keyConcept "Power/Knowledge" ;
+    ex:context ex:PostModernity ;
+    ex:context ex:PostStructuralism ;
+    ex:context ex:May1968 ;
+    ex:ideologicalCluster ex:PostModernism ;
+    ex:influenced ex:Butler ;
+    ex:influenced ex:Agamben ;
+    ex:influencedBy ex:Nietzsche ;
+    ex:influencedBy ex:Heidegger .
+
+# Additional Modern Thinkers
+ex:Arendt
+    rdf:type ex:Philosopher ;
+    rdfs:label "Hannah Arendt" ;
+    dct:date "1906"^^xsd:gYear ;
+    ex:believesIn ex:Action ;
+    ex:believesIn ex:PublicRealm ;
+    ex:believesIn ex:Plurality ;
+    ex:believesIn ex:Totalitarianism ;
+    ex:believesIn ex:Revolution ;
+    ex:keyConcept "The Human Condition" ;
+    ex:keyConcept "Banality of Evil" ;
+    ex:keyConcept "Vita Activa" ;
+    ex:keyConcept "Public Space" ;
+    ex:context ex:Totalitarianism ;
+    ex:context ex:ColdWar ;
+    ex:context ex:PostWarThought ;
+    ex:ideologicalCluster ex:Republicanism ;
+    ex:influenced ex:Benhabib ;
+    ex:influenced ex:Villa ;
+    ex:influencedBy ex:Heidegger ;
+    ex:influencedBy ex:Jaspers .
+
+ex:Nozick
+    rdf:type ex:Philosopher ;
+    rdfs:label "Robert Nozick" ;
+    dct:date "1938"^^xsd:gYear ;
+    ex:believesIn ex:Libertarianism ;
+    ex:believesIn ex:MinimalState ;
+    ex:believesIn ex:SelfOwnership ;
+    ex:believesIn ex:EntitlementTheory ;
+    ex:believesIn ex:IndividualRights ;
+    ex:keyConcept "Anarchy, State, and Utopia" ;
+    ex:keyConcept "Entitlement Theory" ;
+    ex:keyConcept "Minimal State" ;
+    ex:keyConcept "Experience Machine" ;
+    ex:context ex:ColdWar ;
+    ex:context ex:NeoLiberalism ;
+    ex:context ex:PostWarLiberalism ;
+    ex:ideologicalCluster ex:Libertarianism ;
+    ex:influenced ex:Cohen ;
+    ex:influenced ex:Wolff ;
+    ex:influencedBy ex:Locke ;
+    ex:influencedBy ex:Rand .
+
+# Historical Contexts
+ex:ClassicalAthens
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Classical Athens" ;
+    dct:date "-500"^^xsd:gYear ;
+    dct:date "-300"^^xsd:gYear .
+
+ex:ClassicalGreece
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Classical Greece" ;
+    dct:date "-800"^^xsd:gYear ;
+    dct:date "-146"^^xsd:gYear .
+
+ex:PeloponnesianWar
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Peloponnesian War" ;
+    dct:date "-431"^^xsd:gYear ;
+    dct:date "-404"^^xsd:gYear .
+
+ex:MacedonianEmpire
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Macedonian Empire" ;
+    dct:date "-336"^^xsd:gYear ;
+    dct:date "-323"^^xsd:gYear .
+
+ex:LateAntiquity
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Late Antiquity" ;
+    dct:date "200"^^xsd:gYear ;
+    dct:date "700"^^xsd:gYear .
+
+ex:FallOfRome
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Fall of Rome" ;
+    dct:date "376"^^xsd:gYear ;
+    dct:date "476"^^xsd:gYear .
+
+ex:HighMiddleAges
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "High Middle Ages" ;
+    dct:date "1000"^^xsd:gYear ;
+    dct:date "1300"^^xsd:gYear .
+
+ex:Scholasticism
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Scholasticism" ;
+    dct:date "1100"^^xsd:gYear ;
+    dct:date "1500"^^xsd:gYear .
+
+ex:EnglishCivilWar
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "English Civil War" ;
+    dct:date "1642"^^xsd:gYear ;
+    dct:date "1651"^^xsd:gYear .
+
+ex:AgeOfAbsolutism
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Age of Absolutism" ;
+    dct:date "1648"^^xsd:gYear ;
+    dct:date "1789"^^xsd:gYear .
+
+ex:ScientificRevolution
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Scientific Revolution" ;
+    dct:date "1543"^^xsd:gYear ;
+    dct:date "1687"^^xsd:gYear .
+
+ex:Enlightenment
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Enlightenment" ;
+    dct:date "1685"^^xsd:gYear ;
+    dct:date "1815"^^xsd:gYear .
+
+ex:AgeOfDiscovery
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Age of Discovery" ;
+    dct:date "1400"^^xsd:gYear ;
+    dct:date "1600"^^xsd:gYear .
+
+ex:AgeOfReason
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Age of Reason" ;
+    dct:date "1715"^^xsd:gYear ;
+    dct:date "1789"^^xsd:gYear .
+
+ex:IndustrialRevolution
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Industrial Revolution" ;
+    dct:date "1760"^^xsd:gYear ;
+    dct:date "1840"^^xsd:gYear .
+
+ex:VictorianEra
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Victorian Era" ;
+    dct:date "1837"^^xsd:gYear ;
+    dct:date "1901"^^xsd:gYear .
+
+ex:ReformMovement
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Reform Movement" ;
+    dct:date "1830"^^xsd:gYear ;
+    dct:date "1870"^^xsd:gYear .
+
+ex:Modernity
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Modernity" ;
+    dct:date "1800"^^xsd:gYear ;
+    dct:date "1945"^^xsd:gYear .
+
+ex:FinDeSiecle
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Fin de Siècle" ;
+    dct:date "1870"^^xsd:gYear ;
+    dct:date "1914"^^xsd:gYear .
+
+ex:DeclineOfReligion
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Decline of Religion" ;
+    dct:date "1850"^^xsd:gYear ;
+    dct:date "1950"^^xsd:gYear .
+
+ex:ColdWar
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Cold War" ;
+    dct:date "1947"^^xsd:gYear ;
+    dct:date "1991"^^xsd:gYear .
+
+ex:PostWarLiberalism
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Post-War Liberalism" ;
+    dct:date "1945"^^xsd:gYear ;
+    dct:date "1970"^^xsd:gYear .
+
+ex:CivilRightsMovement
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Civil Rights Movement" ;
+    dct:date "1954"^^xsd:gYear ;
+    dct:date "1968"^^xsd:gYear .
+
+ex:PostModernity
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Post-Modernity" ;
+    dct:date "1945"^^xsd:gYear ;
+    dct:date "2000"^^xsd:gYear .
+
+ex:PostStructuralism
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Post-Structuralism" ;
+    dct:date "1960"^^xsd:gYear ;
+    dct:date "1980"^^xsd:gYear .
+
+ex:May1968
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "May 1968" ;
+    dct:date "1968"^^xsd:gYear ;
+    dct:date "1968"^^xsd:gYear .
+
+ex:Totalitarianism
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Totalitarianism" ;
+    dct:date "1920"^^xsd:gYear ;
+    dct:date "1945"^^xsd:gYear .
+
+ex:PostWarThought
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Post-War Thought" ;
+    dct:date "1945"^^xsd:gYear ;
+    dct:date "1970"^^xsd:gYear .
+
+ex:NeoLiberalism
+    rdf:type ex:HistoricalContext ;
+    rdfs:label "Neo-Liberalism" ;
+    dct:date "1970"^^xsd:gYear ;
+    dct:date "2000"^^xsd:gYear .
+
+# Ideological Clusters
+ex:ClassicalRepublicanism
+    rdf:type ex:IdeologicalCluster ;
+    rdfs:label "Classical Republicanism" .
+
+ex:ChristianPoliticalThought
+    rdf:type ex:IdeologicalCluster ;
+    rdfs:label "Christian Political Thought" .
+
+ex:Realism
+    rdf:type ex:IdeologicalCluster ;
+    rdfs:label "Realism" .
+
+ex:Liberalism
+    rdf:type ex:IdeologicalCluster ;
+    rdfs:label "Liberalism" .
+
+ex:Republicanism
+    rdf:type ex:IdeologicalCluster ;
+    rdfs:label "Republicanism" .
+
+ex:Communism
+    rdf:type ex:IdeologicalCluster ;
+    rdfs:label "Communism" .
+
+ex:Existentialism
+    rdf:type ex:IdeologicalCluster ;
+    rdfs:label "Existentialism" .
+
+ex:PostModernism
+    rdf:type ex:IdeologicalCluster ;
+    rdfs:label "Post-Modernism" .
+
+ex:Libertarianism
+    rdf:type ex:IdeologicalCluster ;
+    rdfs:label "Libertarianism" . 
