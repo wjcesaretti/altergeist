@@ -1,123 +1,122 @@
-# Altergeist - a politcal theory simulation
+# AlterGeist
+#Final Project for KRKE @ UNIBO 
 
-Altergeist simulates how political philosophers' views would change under alternate historical contexts using RDF knowledge graphs and LLMs.
-
-## Overview
-
-This project combines symbolic knowledge representation (RDF) with large language models to simulate how political philosophers might think in different historical contexts. It maintains philosophical consistency while allowing for contextual adaptation.
+A framework for simulating philosophical conversations with historical figures using knowledge graphs and large language models.
 
 ## Features
 
-- RDF knowledge graph of political philosophers and their beliefs
-- Context transformation engine for simulating alternate timelines
-- Llama 3.1-powered response generation with ideology preservation
-- CLI interface for easy interaction
-- Automatic response logging and ideology scoring
+- **Knowledge Graph Integration**: Uses RDF/OWL ontologies to represent philosophical knowledge
+- **Symbolic Reasoning**: OWL reasoning to infer new facts and validate responses
+- **Contextual Awareness**: Simulates philosophers in different historical contexts
+- **Interactive UI**: Streamlit-based interface for easy interaction
+- **Response Validation**: Ensures responses align with philosophical beliefs
+- **Extensible Architecture**: Modular design for adding new philosophers and capabilities
 
-## Prerequisites
+## Project Structure
 
-- Python 3.8+
-- Hugging Face account and access token
-- RDFLib and other dependencies (see requirements.txt)
+```
+altergeist/
+├── app/
+│   ├── ui.py              # Streamlit web interface
+│   └── api.py             # FastAPI backend
+├── data/
+│   └── philosophers.ttl   # OWL ontology of philosophical knowledge
+├── engine/
+│   ├── kg_parser.py       # Knowledge graph parsing
+│   ├── prompt_builder.py  # LLM prompt construction
+│   ├── context_transform.py # Historical context modification
+│   ├── llm_generate.py    # LLM interaction
+│   └── symbolic_reasoner.py # OWL reasoning engine
+├── tests/
+│   ├── test_kg_parser.py
+│   ├── test_prompt_builder.py
+│   ├── test_context_transform.py
+│   └── test_llm_generate.py
+└── requirements.txt
+```
 
 ## Installation
 
-1. Clone the repository:
-```bash
-git clone https://github.com/wjcesaretti/altergeist.git
-cd altergeist
-```
-
-2. Create and activate a virtual environment:
+1. Create a virtual environment:
 ```bash
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-3. Install dependencies:
+2. Install dependencies:
 ```bash
-python3 -m pip install --break-system-packages -r requirements.txt
+pip install -r requirements.txt
 ```
-
-4. Set up your Hugging Face token:
-   - Create an account at [huggingface.co](https://huggingface.co)
-   - Go to Settings → Access Tokens
-   - Create a new token with read access
-   - Set the token in your environment:
-   ```bash
-   export HUGGINGFACE_TOKEN='your-token-here'
-   ```
-   - For permanent setup, add to your shell profile:
-   ```bash
-   echo 'export HUGGINGFACE_TOKEN="your-token-here"' >> ~/.zshrc  # or ~/.bashrc
-   source ~/.zshrc  # or source ~/.bashrc
-   ```
 
 ## Usage
 
-Run simulations using the CLI:
+### Web Interface
 
+Run the Streamlit UI:
 ```bash
-python3 -m app.run simulate Hobbes --year 1946 --region "Germany" --event "PostWWII" --question "What is the role of the state in AI governance?"
+streamlit run app/ui.py
 ```
 
-### Arguments
+The UI provides:
+- Philosopher selection
+- Historical context modification
+- Question input
+- Response generation
+- Response validation
 
-- `philosopher`: Name of the philosopher (e.g., Hobbes, Locke, Marx)
-- `--year`: New birth year (optional)
-- `--region`: New region (optional)
-- `--event`: Historical event (optional)
-- `--question`: Question to ask the philosopher
-- `--model`: LLM model to use (default: meta-llama/Llama-3.1-70B-Instruct)
-- `--temperature`: LLM temperature (default: 0.7)
+### API
+
+Run the FastAPI server:
+```bash
+uvicorn app.api:app --reload
+```
+
+API endpoints:
+- `POST /generate`: Generate a response
+- `GET /philosophers`: List available philosophers
+- `GET /philosopher/{name}`: Get philosopher details
+
+## Knowledge Graph
+
+The system uses an OWL ontology (`data/philosophers.ttl`) that includes:
+- Philosopher profiles
+- Core beliefs and concepts
+- Historical context
+- Influence relationships
+- Philosophical schools and movements
 
 ## Development
 
-### Project Structure
-
-```
-counterfactual-political-simulator/
-├── data/                  # RDF knowledge graph & SPARQL utilities
-│   └── philosophers.ttl   # Full symbolic dataset
-├── engine/               # Core simulator logic
-│   ├── kg_parser.py      # RDFLib parser & triple normalization
-│   ├── context_transform.py  # Injects counterfactual changes
-│   └── prompt_builder.py  # Constructs prompt from symbolic context
-├── llm/                  # LLM interaction layer
-│   └── generate.py       # Runs LLM prompt & returns structured response
-├── app/                  # CLI entry point
-│   └── run.py           # Main simulation runner
-└── output/              # LLM outputs & logs
-```
-
-### Adding New Philosophers
-
-1. Edit `data/philosophers.ttl` to add new philosopher data
-2. Follow the existing RDF structure
-3. Include beliefs, concepts, and historical context
-
-## Testing
-
-Run tests with pytest:
+### Running Tests
 
 ```bash
-pytest tests/
+pytest
+```
+
+### Code Style
+
+The project uses:
+- Black for code formatting
+- isort for import sorting
+- mypy for type checking
+- ruff for linting
+
+Run all checks:
+```bash
+black .
+isort .
+mypy .
+ruff check .
 ```
 
 ## Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Run tests and style checks
+5. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-Your Name - [@WilliamCesaretti](https://github.com/wjcesaretti)
-
-Project Link: [https://github.com/wjcesaretti/altergeist](https://github.com/wjcesaretti/altergeist)
+MIT License
