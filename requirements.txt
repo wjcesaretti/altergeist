@@ -1,0 +1,26 @@
+# Core dependencies
+rdflib>=7.0.0
+SPARQLWrapper>=2.0.0
+typer>=0.9.0
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+owlrl>=6.0.0
+streamlit>=1.32.0
+
+# Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+
+# Development
+black>=23.0.0
+isort>=5.0.0
+mypy>=1.0.0
+ruff>=0.1.0
+
+# Optional: API support
+fastapi>=0.100.0
+uvicorn>=0.23.0
+
+# Optional: Symbolic reasoning
+owlready2>=0.40.0 
