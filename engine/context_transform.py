@@ -45,15 +45,15 @@ class ContextTransformer:
     def _adjust_influences(self, new_year: int) -> None:
         self.modified.influenced_by = [
             influence for influence in self.modified.influenced_by
-            if self._get_philosopher_birth_year(influence) < new_year
+            if self._get_philosopher_birth_year(influence) is not None 
+            and self._get_philosopher_birth_year(influence) < new_year
         ]
 
     def _get_philosopher_birth_year(self, name: str) -> Optional[int]:
+        # Extract the philosopher name from the URI
+        if name.startswith("http://example.org/philosophy/"):
+            name = name.split("/")[-1]
         philosopher = self.kg_parser.get_philosopher(name)
         return philosopher.birth_year if philosopher else None
 
-    def get_ideology_preservation_score(self) -> float:
-        if not self.modified:
-            return 0.0  
-        preserved_beliefs = sum(1 for belief in self.core_beliefs if belief in self.modified.beliefs)
-        return preserved_beliefs / len(self.core_beliefs) if self.core_beliefs else 1.0 
+ 
