@@ -28,17 +28,8 @@ class LLMGenerator:
 
     def generate_response(self, prompt: str, philosopher: str) -> str:
         """Generate a response using the Hugging Face Inference API."""
-        # Get philosopher data from knowledge graph
-        philosopher_data = self.kg_parser.get_philosopher(philosopher)
-        if not philosopher_data:
-            raise ValueError(f"Philosopher {philosopher} not found in knowledge graph")
-            
-        # Use PromptBuilder to format the prompt
-        prompt_builder = PromptBuilder(philosopher_data)
-        formatted_prompt = prompt_builder.build_prompt(prompt)
-        
         # Format the prompt for Llama
-        llama_prompt = f"""<s>[INST] {formatted_prompt} [/INST]"""
+        llama_prompt = f"""<s>[INST] {prompt} [/INST]"""
         
         # Call the Hugging Face Inference API
         API_URL = f"https://api-inference.huggingface.co/models/{self.model_name}"
@@ -69,11 +60,9 @@ class LLMGenerator:
             # Remove any special tokens and URLs
             generated_text = generated_text.replace("<s>", "").replace("</s>", "")
             generated_text = generated_text.replace("[INST]", "").replace("[/INST]", "")
-        
             
             if not generated_text:
                 generated_text = "I apologize, but I am unable to generate a response at this time. This may be due to the complexity of the question or limitations in my current state."
-            
 
             self._save_response(generated_text, philosopher)
             

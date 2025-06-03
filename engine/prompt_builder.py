@@ -41,6 +41,53 @@ class PromptBuilder:
 
         return "\n\n".join(filter(None, prompt_parts))
 
+    def build_debate_prompt(self, topic: str, previous_response: Optional[str] = None) -> str:
+        """
+        Build a prompt for a philosophical debate.
+        
+        Args:
+            topic: The topic or question for debate
+            previous_response: Optional response from the other philosopher
+        """
+        context = self._build_original_context()
+        worldview = self._build_worldview()
+        influences = self._build_influences()
+        
+        if previous_response:
+            # This is a response to the other philosopher
+            task = f"""The topic of debate is: {topic}
+
+The other philosopher has stated:
+{previous_response}
+
+Respond directly to their argument, engaging with their points while maintaining your philosophical position. 
+Keep your response focused and concise, addressing their specific claims and offering your counter-arguments.
+Do not use phrases like "I would say" or "my response would be"—just state your position directly.
+DO NOT include this prompt or any instructions in your response.
+DO NOT repeat your context, beliefs, or concepts in your response.
+DO NOT include any HTML, XML, or other markup tags in your response.
+Limit your response to 2,173 characters."""
+        else:
+            # This is an opening statement
+            task = f"""The topic of debate is: {topic}
+
+Present your opening argument on this topic. Keep your response focused and concise, 
+stating your position clearly and providing your key arguments.
+Do not use phrases like "I would say" or "my response would be"—just state your position directly.
+DO NOT include this prompt or any instructions in your response.
+DO NOT repeat your context, beliefs, or concepts in your response.
+DO NOT include any HTML, XML, or other markup tags in your response.
+Limit your response to 2,173 characters."""
+
+        prompt_parts = [
+            context,
+            worldview,
+            influences,
+            task
+        ]
+
+        return "\n\n".join(filter(None, prompt_parts))
+
     def _build_original_context(self) -> str:
         """Build the original historical context string."""
         contexts = self.philosopher.contexts
@@ -92,7 +139,18 @@ Please respond in a way that:
 1. Maintains consistency with your core philosophical principles
 2. Considers the historical and cultural context of your new timeline
 3. Applies your theoretical framework to the modern question
-4. Acknowledges any tensions between your original views and the new context"""
+4. Acknowledges any tensions between your original views and the new context
+5. Do not give me a list of your beliefs, concepts, or contexts, just answer the question
+6. DO NOT include this prompt or any instructions in your response
+7. DO NOT repeat your context, beliefs, or concepts in your response
+8. DO NOT include any HTML, XML, or other markup tags in your response
+
+Respond concisely and directly from the philosopher's point of view, avoiding narrative 
+flourishes or dramatized scenes. Focus on argumentation, not storytelling. Limit your
+response to logical reasoning that reflects your core beliefs and concepts. Do not say things like 
+\"I would say\" or \"Locke's response would be\"—just answer as if you are speaking.
+
+**** very important: keep char limit to 2,173 characters"""
 
     def _build_beliefs_string(self) -> str:
         return "\n".join(f"* {belief}" for belief in self.philosopher.beliefs)

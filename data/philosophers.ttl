@@ -1,1058 +1,486 @@
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix dct: <http://purl.org/dc/terms/> .
+@prefix : <http://example.org/philosophy/ontology#> .
 @prefix ex: <http://example.org/philosophy/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://example.org/philosophy/ontology> .
 
-# Ontology Metadata
-<http://example.org/philosophy/ontology>
-    rdf:type owl:Ontology ;
+<http://example.org/philosophy/ontology> rdf:type owl:Ontology ;
+    dct:created "2024-03-20"^^xsd:date ;
+    rdfs:comment "A richly connected ontology for philosophers, beliefs, government systems, concepts, and their historical contexts and relationships." ;
     rdfs:label "Ontology of Political Philosophy" ;
-    rdfs:comment "A modular ontology for philosophers, beliefs, concepts, and influence relationships." ;
-    owl:versionInfo "1.0.0" ;
-    dct:created "2024-03-20"^^xsd:date .
+    owl:versionInfo "2.0.0" .
 
-########## CLASS & PROPERTY HIERARCHY (TBOX) ##########
+###########################################################
+# Annotation Properties
+###########################################################
 
-# Classes
-ex:Philosopher rdf:type owl:Class ;
-    rdfs:label "Philosopher" ;
-    rdfs:comment "A thinker who develops and advocates philosophical ideas and systems." .
+dct:created rdf:type owl:AnnotationProperty .
+dct:date rdf:type owl:AnnotationProperty .
 
-ex:Belief rdf:type owl:Class ;
-    rdfs:label "Belief" ;
-    rdfs:comment "A philosophical position or doctrine that a philosopher holds." .
+###########################################################
+# Datatypes
+###########################################################
 
-ex:Concept rdf:type owl:Class ;
-    rdfs:label "Concept" ;
-    rdfs:comment "A fundamental idea or notion in philosophical thought." .
+xsd:date rdf:type rdfs:Datatype .
+xsd:gYear rdf:type rdfs:Datatype .
 
-ex:KeyConcept rdf:type owl:Class ;
-    rdfs:subClassOf ex:Concept ;
-    rdfs:label "Key Concept" ;
-    rdfs:comment "A central or defining concept in a philosopher's thought." .
+###########################################################
+# Object Properties
+###########################################################
 
-ex:GovernmentSystem rdf:type owl:Class ;
-    rdfs:label "Government System" ;
-    rdfs:comment "A system or form of political organization and governance." .
-
-ex:IdeologicalCluster rdf:type owl:Class ;
-    rdfs:label "Ideological Cluster" ;
-    rdfs:comment "A grouping of related philosophical positions or schools of thought." .
-
-ex:HistoricalContext rdf:type owl:Class ;
-    rdfs:label "Historical Context" ;
-    rdfs:comment "A historical period or situation that shapes philosophical thought." .
-
-ex:Person rdf:type owl:Class ;
-    rdfs:label "Person" ;
-    rdfs:comment "A human individual who may or may not be a philosopher." .
-
-ex:School rdf:type owl:Class ;
-    rdfs:label "School" ;
-    rdfs:comment "A group of philosophers sharing common principles or methods." .
-
-ex:Movement rdf:type owl:Class ;
-    rdfs:label "Movement" ;
-    rdfs:comment "A broader intellectual or cultural movement encompassing multiple schools." .
-
-ex:Era rdf:type owl:Class ;
-    rdfs:label "Era" ;
-    rdfs:comment "A distinct period in philosophical history." .
-
-ex:Work rdf:type owl:Class ;
-    rdfs:label "Work" ;
-    rdfs:comment "A philosophical text or body of writing." .
-
-ex:PhilosophicalTradition rdf:type owl:Class ;
-    rdfs:label "Philosophical Tradition" ;
-    rdfs:comment "A long-standing approach or school of philosophical thought." .
-
-ex:Method rdf:type owl:Class ;
-    rdfs:label "Method" ;
-    rdfs:comment "A systematic approach to philosophical inquiry." .
-
-ex:Argument rdf:type owl:Class ;
-    rdfs:label "Argument" ;
-    rdfs:comment "A structured philosophical reasoning or proof." .
-
-ex:Category rdf:type owl:Class ;
-    rdfs:label "Category" ;
-    rdfs:comment "A classification of philosophical ideas or approaches." .
-
-ex:Branch rdf:type owl:Class ;
-    rdfs:subClassOf ex:Category ;
-    rdfs:label "Branch" ;
-    rdfs:comment "A major division of philosophical inquiry." .
-
-ex:Problem rdf:type owl:Class ;
-    rdfs:label "Problem" ;
-    rdfs:comment "A philosophical question or challenge." .
-
-ex:Solution rdf:type owl:Class ;
-    rdfs:subClassOf ex:Problem ;
-    rdfs:label "Solution" ;
-    rdfs:comment "A proposed resolution to a philosophical problem." .
-
-ex:Debate rdf:type owl:Class ;
-    rdfs:label "Debate" ;
-    rdfs:comment "A philosophical controversy or discussion." .
-
-ex:Position rdf:type owl:Class ;
-    rdfs:label "Position" ;
-    rdfs:comment "A stance taken in a philosophical debate." .
-
-ex:Principle rdf:type owl:Class ;
-    rdfs:label "Principle" ;
-    rdfs:comment "A fundamental truth or proposition serving as a foundation for belief or action." .
-
-ex:Theory rdf:type owl:Class ;
-    rdfs:label "Theory" ;
-    rdfs:comment "A systematic explanation of philosophical phenomena." .
-
-# Equivalent Classes
-ex:MoralPhilosophy owl:equivalentClass ex:Ethics .
-ex:PoliticalPhilosophy owl:equivalentClass ex:PoliticalTheory .
-
-# Property hierarchies
 ex:believesIn rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:Belief ;
-    rdfs:subPropertyOf ex:endorses ;
-    rdfs:label "Believes In" ;
-    rdfs:comment "Indicates that a philosopher holds a particular belief." .
+    rdfs:domain ex:philosopher ;
+    rdfs:range ex:belief ;
+    rdfs:comment "Indicates that a philosopher holds a particular belief or idea." ;
+    rdfs:label "believesIn" .
 
-ex:endorses rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:Belief ;
-    rdfs:label "Endorses" ;
-    rdfs:comment "Indicates that a philosopher supports or advocates a belief." .
+ex:criticizes rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:philosopher ;
+    rdfs:range ex:belief ;
+    rdfs:comment "Indicates a philosopher's criticism or rejection of a belief or idea." ;
+    rdfs:label "criticizes" .
 
-ex:keyConcept rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:KeyConcept ;
-    rdfs:label "Key Concept" ;
-    rdfs:comment "Indicates a central concept in a philosopher's thought." .
+ex:supports rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:philosopher ;
+    rdfs:range ex:belief ;
+    rdfs:comment "Indicates a philosopher's endorsement of a concept or principle." ;
+    rdfs:label "supports" .
 
-ex:context rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:HistoricalContext ;
-    rdfs:label "Context" ;
-    rdfs:comment "Indicates the historical context of a philosopher's work." .
+ex:developedConcept rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:philosopher ;
+    rdfs:range ex:concept ;
+    rdfs:comment "Connects a philosopher to a concept they originated or formalized." ;
+    rdfs:label "developedConcept" .
 
-ex:ideologicalCluster rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:IdeologicalCluster ;
-    rdfs:label "Ideological Cluster" ;
-    rdfs:comment "Indicates the ideological grouping of a philosopher." .
+ex:influencedBy rdf:type owl:ObjectProperty , owl:TransitiveProperty ;
+    rdfs:domain ex:philosopher ;
+    rdfs:range ex:philosopher ;
+    rdfs:comment "Indicates direct philosophical influence between thinkers." ;
+    rdfs:label "influencedBy" .
 
-ex:influenced rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:Philosopher ;
-    rdfs:label "Influenced" ;
-    rdfs:comment "Indicates direct philosophical influence from one thinker to another." .
+ex:livedDuring rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:philosopher ;
+    rdfs:range ex:historicalContext ;
+    rdfs:comment "Places a philosopher within a particular historical context or era." ;
+    rdfs:label "livedDuring" .
 
-ex:influencedBy rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:Philosopher ;
-    rdfs:label "Influenced By" ;
-    rdfs:comment "Indicates that a philosopher was influenced by another." .
+ex:basedOnPrinciple rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:concept ;
+    rdfs:range ex:principle ;
+    rdfs:comment "Connects a belief, concept, or system to an underlying principle." ;
+    rdfs:label "basedOnPrinciple" .
 
-# Data properties
-ex:birthYear rdf:type owl:DatatypeProperty ;
-    rdfs:domain ex:Philosopher ;
+ex:contrastsWith rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:concept ;
+    rdfs:range ex:concept ;
+    rdfs:comment "Indicates a conceptual or theoretical opposition between two ideas." ;
+    rdfs:label "contrastsWith" .
+
+ex:exampleOf rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:work ;
+    rdfs:range ex:concept ;
+    rdfs:comment "A work that exemplifies a concept, belief, or principle." ;
+    rdfs:label "exampleOf" .
+
+ex:subClassOf rdf:type owl:ObjectProperty ;
+    rdfs:domain ex:concept ;
+    rdfs:range ex:concept ;
+    rdfs:comment "A concept is a specialization of another broader concept." ;
+    rdfs:label "subClassOf" .
+
+###########################################################
+# Data Properties
+###########################################################
+
+ex:birthYear rdf:type owl:DatatypeProperty , owl:FunctionalProperty ;
+    rdfs:domain ex:philosopher ;
     rdfs:range xsd:string ;
-    rdfs:label "Birth Year" ;
-    rdfs:comment "The year of a philosopher's birth." .
+    rdfs:comment "The birth year of a philosopher." ;
+    rdfs:label "birthYear" .
 
 ex:description rdf:type owl:DatatypeProperty ;
     rdfs:domain owl:Thing ;
     rdfs:range xsd:string ;
-    rdfs:label "Description" ;
-    rdfs:comment "A detailed description of a concept, belief, or entity." .
-
-# Property chains and characteristics
-[ rdf:type owl:PropertyChain ;
-  owl:propertyChainAxiom (ex:influenced ex:influenced)
-] rdfs:subPropertyOf ex:indirectlyInfluenced .
-
-ex:influenced rdf:type owl:TransitiveProperty .
-ex:influencedBy rdf:type owl:TransitiveProperty .
-ex:supports rdf:type owl:TransitiveProperty .
-ex:criticizes rdf:type owl:TransitiveProperty .
-ex:developedConcept rdf:type owl:TransitiveProperty .
-
-# Inverse properties
-ex:influenced owl:inverseOf ex:influencedBy .
-ex:supports owl:inverseOf ex:supportedBy .
-ex:criticizes owl:inverseOf ex:criticizedBy .
-ex:developedConcept owl:inverseOf ex:developedBy .
-
-########## Transitive properties ##########
-ex:influenced rdf:type owl:TransitiveProperty .
-ex:influencedBy rdf:type owl:TransitiveProperty .
-ex:supports rdf:type owl:TransitiveProperty .
-ex:criticizes rdf:type owl:TransitiveProperty .
-ex:developedConcept rdf:type owl:TransitiveProperty .
-
-########## SubClassOf inferences for beliefs/concepts ##########
-ex:Utilitarianism rdfs:subClassOf ex:Consequentialism .
-ex:Consequentialism rdf:type ex:Belief ; rdfs:label "Consequentialism" ; ex:description "Morality of actions judged solely by their outcomes." .
-
-ex:RepresentativeDemocracy rdfs:subClassOf ex:GovernmentSystem .
-ex:DirectDemocracy rdfs:subClassOf ex:GovernmentSystem .
-
-ex:VirtueEthics rdfs:subClassOf ex:MoralPhilosophy .
-ex:MoralPhilosophy rdf:type ex:Belief ; rdfs:label "Moral Philosophy" ; ex:description "Philosophical study of right and wrong action." .
-ex:Deontology rdfs:subClassOf ex:MoralPhilosophy .
-ex:Empiricism rdfs:subClassOf ex:Epistemology .
-ex:Rationalism rdfs:subClassOf ex:Epistemology .
-ex:Epistemology rdf:type ex:Belief ; rdfs:label "Epistemology" ; ex:description "Study of knowledge, its nature, sources and limits." .
-
-ex:Materialism rdfs:subClassOf ex:Metaphysics .
-ex:Idealism rdfs:subClassOf ex:Metaphysics . 
-ex:Metaphysics rdf:type ex:Belief ; rdfs:label "Metaphysics" ; ex:description "Study of fundamental nature of reality and existence." .
-
-ex:Monarchy rdfs:subClassOf ex:GovernmentSystem .
-ex:Aristocracy rdfs:subClassOf ex:GovernmentSystem .
-ex:Oligarchy rdfs:subClassOf ex:GovernmentSystem .
-ex:Tyranny rdfs:subClassOf ex:GovernmentSystem .
-
-ex:Stoicism rdfs:subClassOf ex:Hellenistic .
-ex:Epicureanism rdfs:subClassOf ex:Hellenistic .
-ex:Skepticism rdfs:subClassOf ex:Hellenistic .
-ex:Hellenistic rdf:type ex:IdeologicalCluster ; rdfs:label "Hellenistic Philosophy" ; ex:description "Schools of philosophy that flourished in ancient Greece and Rome after Aristotle." .
-
-ex:Marxism rdfs:subClassOf ex:Socialism .
-ex:DemocraticSocialism rdfs:subClassOf ex:Socialism .
-ex:Socialism rdf:type ex:IdeologicalCluster ; rdfs:label "Socialism" ; ex:description "Political and economic system based on social ownership and democratic control." .
-
-ex:ClassicalLiberalism rdfs:subClassOf ex:Liberalism .
-ex:SocialLiberalism rdfs:subClassOf ex:Liberalism .
-ex:Neoliberalism rdfs:subClassOf ex:Liberalism .
-
-########## PHILOSOPHERS ##########
-
-ex:Plato
-    rdf:type ex:Philosopher ;
-    rdfs:label "Plato" ;
-    ex:birthYear "0428 BCE" ;
-    ex:believesIn ex:PhilosopherKing ;
-    ex:believesIn ex:Forms ;
-    ex:believesIn ex:Justice ;
-    ex:believesIn ex:VirtueEthics ;
-    ex:believesIn ex:Education ;
-    ex:keyConcept ex:TheRepublic ;
-    ex:keyConcept ex:AllegoryOfTheCave ;
-    ex:keyConcept ex:TheoryOfForms ;
-    ex:keyConcept ex:GuardianClass ;
-    ex:context ex:ClassicalAthens ;
-    ex:context ex:PeloponnesianWar ;
-    ex:ideologicalCluster ex:ClassicalRepublicanism ;
-    ex:influenced ex:Aristotle ;
-    ex:influenced ex:Augustine ;
-    ex:influenced ex:More ;
-    ex:influencedBy ex:Socrates .
-
-ex:Aristotle
-    rdf:type ex:Philosopher ;
-    rdfs:label "Aristotle" ;
-    ex:birthYear "0384 BCE" ;
-    ex:believesIn ex:VirtueEthics ;
-    ex:believesIn ex:Polis ;
-    ex:believesIn ex:GoldenMean ;
-    ex:believesIn ex:NaturalLaw ;
-    ex:believesIn ex:ConstitutionalGovernment ;
-    ex:keyConcept ex:NicomacheanEthics ;
-    ex:keyConcept ex:Politics ;
-    ex:keyConcept ex:Eudaimonia ;
-    ex:keyConcept ex:PracticalWisdom ;
-    ex:context ex:ClassicalGreece ;
-    ex:context ex:MacedonianEmpire ;
-    ex:ideologicalCluster ex:ClassicalRepublicanism ;
-    ex:influenced ex:Aquinas ;
-    ex:influenced ex:MacIntyre ;
-    ex:influenced ex:Arendt ;
-    ex:influencedBy ex:Plato .
-
-ex:Augustine
-    rdf:type ex:Philosopher ;
-    rdfs:label "Augustine of Hippo" ;
-    ex:birthYear "0354 CE" ;
-    ex:believesIn ex:DivineLaw ;
-    ex:believesIn ex:TwoCities ;
-    ex:believesIn ex:OriginalSin ;
-    ex:believesIn ex:Predestination ;
-    ex:believesIn ex:JustWar ;
-    ex:keyConcept ex:CityOfGod ;
-    ex:keyConcept ex:JustWarTheory ;
-    ex:keyConcept ex:Confessions ;
-    ex:keyConcept ex:Grace ;
-    ex:context ex:LateAntiquity ;
-    ex:context ex:FallOfRome ;
-    ex:ideologicalCluster ex:ChristianPoliticalThought ;
-    ex:influenced ex:Aquinas ;
-    ex:influenced ex:Luther ;
-    ex:influencedBy ex:Plato ;
-    ex:influencedBy ex:Cicero .
-
-ex:Aquinas
-    rdf:type ex:Philosopher ;
-    rdfs:label "Thomas Aquinas" ;
-    ex:birthYear "1225 CE" ;
-    ex:believesIn ex:NaturalLaw ;
-    ex:believesIn ex:DivineLaw ;
-    ex:believesIn ex:VirtueEthics ;
-    ex:believesIn ex:JustWar ;
-    ex:believesIn ex:CommonGood ;
-    ex:keyConcept ex:SummaTheologica ;
-    ex:keyConcept ex:JustWarTheory ;
-    ex:keyConcept ex:NaturalLawConcept ;
-    ex:keyConcept ex:EternalLaw ;
-    ex:context ex:HighMiddleAges ;
-    ex:context ex:Scholasticism ;
-    ex:ideologicalCluster ex:ChristianPoliticalThought ;
-    ex:influenced ex:Suarez ;
-    ex:influenced ex:Maritain ;
-    ex:influencedBy ex:Aristotle ;
-    ex:influencedBy ex:Augustine .
-
-ex:Hobbes
-    rdf:type ex:Philosopher ;
-    rdfs:label "Thomas Hobbes" ;
-    ex:birthYear "1588 CE" ;
-    ex:believesIn ex:AuthoritarianSovereignty ;
-    ex:believesIn ex:SocialContract ;
-    ex:believesIn ex:NaturalLaw ;
-    ex:believesIn ex:StateOfNature ;
-    ex:believesIn ex:Materialism ;
-    ex:keyConcept ex:Leviathan ;
-    ex:keyConcept ex:StateOfNatureConcept ;
-    ex:keyConcept ex:SocialContractConcept ;
-    ex:keyConcept ex:AbsoluteSovereignty ;
-    ex:context ex:EnglishCivilWar ;
-    ex:context ex:AgeOfAbsolutism ;
-    ex:context ex:ScientificRevolution ;
-    ex:ideologicalCluster ex:Realism ;
-    ex:influenced ex:Rousseau ;
-    ex:influenced ex:Schmitt ;
-    ex:influencedBy ex:Galileo ;
-    ex:influencedBy ex:Bacon .
-
-ex:Locke
-    rdf:type ex:Philosopher ;
-    rdfs:label "John Locke" ;
-    dct:date "1632"^^xsd:gYear ;
-    ex:believesIn ex:NaturalRights ;
-    ex:believesIn ex:SocialContract ;
-    ex:believesIn ex:Liberalism ;
-    ex:believesIn ex:PropertyRights ;
-    ex:believesIn ex:ReligiousToleration ;
-    ex:keyConcept ex:TabulaRasa ;
-    ex:keyConcept ex:PropertyRightsConcept ;
-    ex:keyConcept ex:NaturalRightsConcept ;
-    ex:keyConcept ex:LimitedGovernment ;
-    ex:context ex:GloriousRevolution ;
-    ex:context ex:Enlightenment ;
-    ex:context ex:AgeOfDiscovery ;
-    ex:ideologicalCluster ex:Liberalism ;
-    ex:influenced ex:Jefferson ;
-    ex:influenced ex:Montesquieu ;
-    ex:influenced ex:Smith ;
-    ex:influencedBy ex:Grotius ;
-    ex:influencedBy ex:Boyle .
-
-ex:Rousseau
-    rdf:type ex:Philosopher ;
-    rdfs:label "Jean-Jacques Rousseau" ;
-    dct:date "1712"^^xsd:gYear ;
-    ex:believesIn ex:GeneralWill ;
-    ex:believesIn ex:SocialContract ;
-    ex:believesIn ex:PopularSovereignty ;
-    ex:believesIn ex:NaturalGoodness ;
-    ex:believesIn ex:DirectDemocracy ;
-    ex:keyConcept ex:NobleSavage ;
-    ex:keyConcept ex:CivilReligion ;
-    ex:keyConcept ex:GeneralWillConcept ;
-    ex:keyConcept ex:SocialContractConcept ;
-    ex:context ex:Enlightenment ;
-    ex:context ex:FrenchRevolution ;
-    ex:context ex:AgeOfReason ;
-    ex:ideologicalCluster ex:Republicanism ;
-    ex:influenced ex:Robespierre ;
-    ex:influenced ex:Kant ;
-    ex:influencedBy ex:Hobbes ;
-    ex:influencedBy ex:Montesquieu .
-
-ex:Marx
-    rdf:type ex:Philosopher ;
-    rdfs:label "Karl Marx" ;
-    dct:date "1818"^^xsd:gYear ;
-    ex:believesIn ex:HistoricalMaterialism ;
-    ex:believesIn ex:ClassStruggle ;
-    ex:believesIn ex:Communism ;
-    ex:believesIn ex:Alienation ;
-    ex:believesIn ex:DialecticalMaterialism ;
-    ex:keyConcept ex:DialecticalMaterialismConcept ;
-    ex:keyConcept ex:SurplusValue ;
-    ex:keyConcept ex:ClassConsciousness ;
-    ex:keyConcept ex:BaseAndSuperstructure ;
-    ex:context ex:IndustrialRevolution ;
-    ex:context ex:AgeOfRevolution ;
-    ex:context ex:RiseOfCapitalism ;
-    ex:ideologicalCluster ex:Communism ;
-    ex:influenced ex:Engels ;
-    ex:influenced ex:Lenin ;
-    ex:influencedBy ex:Hegel ;
-    ex:influencedBy ex:Smith .
-
-ex:Mill
-    rdf:type ex:Philosopher ;
-    rdfs:label "John Stuart Mill" ;
-    dct:date "1806"^^xsd:gYear ;
-    ex:believesIn ex:Utilitarianism ;
-    ex:believesIn ex:Liberalism ;
-    ex:believesIn ex:IndividualLiberty ;
-    ex:believesIn ex:RepresentativeDemocracy ;
-    ex:believesIn ex:WomenRights ;
-    ex:keyConcept ex:HarmPrinciple ;
-    ex:keyConcept ex:LibertyConcept ;
-    ex:keyConcept ex:GreatestHappiness ;
-    ex:keyConcept ex:MarketEconomy ;
-    ex:context ex:IndustrialRevolution ;
-    ex:context ex:VictorianEra ;
-    ex:context ex:ReformMovement ;
-    ex:ideologicalCluster ex:Liberalism ;
-    ex:influenced ex:Rawls ;
-    ex:influenced ex:Sidgwick ;
-    ex:influencedBy ex:Bentham ;
-    ex:influencedBy ex:Coleridge .
-
-ex:Nietzsche
-    rdf:type ex:Philosopher ;
-    rdfs:label "Friedrich Nietzsche" ;
-    dct:date "1844"^^xsd:gYear ;
-    ex:believesIn ex:WillToPower ;
-    ex:believesIn ex:EternalRecurrence ;
-    ex:believesIn ex:MasterMorality ;
-    ex:believesIn ex:Perspectivism ;
-    ex:believesIn ex:SelfOvercoming ;
-    ex:keyConcept ex:Ubermensch ;
-    ex:keyConcept ex:GodIsDead ;
-    ex:keyConcept ex:WillToPowerConcept ;
-    ex:keyConcept ex:EternalRecurrenceConcept ;
-    ex:context ex:Modernity ;
-    ex:context ex:FinDeSiecle ;
-    ex:context ex:DeclineOfReligion ;
-    ex:ideologicalCluster ex:Existentialism ;
-    ex:influenced ex:Foucault ;
-    ex:influenced ex:Heidegger ;
-    ex:influencedBy ex:Schopenhauer ;
-    ex:influencedBy ex:Wagner .
-
-ex:Rawls
-    rdf:type ex:Philosopher ;
-    rdfs:label "John Rawls" ;
-    dct:date "1921"^^xsd:gYear ;
-    ex:believesIn ex:JusticeAsFairness ;
-    ex:believesIn ex:OriginalPosition ;
-    ex:believesIn ex:LiberalEgalitarianism ;
-    ex:believesIn ex:PublicReason ;
-    ex:believesIn ex:OverlappingConsensus ;
-    ex:keyConcept ex:VeilOfIgnorance ;
-    ex:keyConcept ex:DifferencePrinciple ;
-    ex:keyConcept ex:OriginalPositionConcept ;
-    ex:keyConcept ex:ReflectiveEquilibrium ;
-    ex:context ex:ColdWar ;
-    ex:context ex:PostWarLiberalism ;
-    ex:context ex:CivilRightsMovement ;
-    ex:ideologicalCluster ex:Liberalism ;
-    ex:influenced ex:Sandel ;
-    ex:influenced ex:Nozick ;
-    ex:influencedBy ex:Kant ;
-    ex:influencedBy ex:Mill .
-
-ex:Foucault
-    rdf:type ex:Philosopher ;
-    rdfs:label "Michel Foucault" ;
-    dct:date "1926"^^xsd:gYear ;
-    ex:believesIn ex:PowerKnowledge ;
-    ex:believesIn ex:Discipline ;
-    ex:believesIn ex:Governmentality ;
-    ex:believesIn ex:Biopower ;
-    ex:believesIn ex:ArchaeologyOfKnowledge ;
-    ex:keyConcept ex:BiopowerConcept ;
-    ex:keyConcept ex:ArchaeologyOfKnowledgeConcept ;
-    ex:keyConcept ex:DisciplineAndPunish ;
-    ex:keyConcept ex:PowerKnowledgeConcept ;
-    ex:context ex:PostModernity ;
-    ex:context ex:PostStructuralism ;
-    ex:context ex:May1968 ;
-    ex:ideologicalCluster ex:PostModernism ;
-    ex:influenced ex:Butler ;
-    ex:influenced ex:Agamben ;
-    ex:influencedBy ex:Nietzsche ;
-    ex:influencedBy ex:Heidegger .
-
-ex:Arendt
-    rdf:type ex:Philosopher ;
-    rdfs:label "Hannah Arendt" ;
-    dct:date "1906"^^xsd:gYear ;
-    ex:believesIn ex:Action ;
-    ex:believesIn ex:PublicRealm ;
-    ex:believesIn ex:Plurality ;
-    ex:believesIn ex:Totalitarianism ;
-    ex:believesIn ex:Revolution ;
-    ex:keyConcept ex:TheHumanCondition ;
-    ex:keyConcept ex:BanalityOfEvil ;
-    ex:keyConcept ex:VitaActiva ;
-    ex:keyConcept ex:PublicSpace ;
-    ex:context ex:Totalitarianism ;
-    ex:context ex:ColdWar ;
-    ex:context ex:PostWarThought ;
-    ex:ideologicalCluster ex:Republicanism ;
-    ex:influenced ex:Benhabib ;
-    ex:influenced ex:Villa ;
-    ex:influencedBy ex:Heidegger ;
-    ex:influencedBy ex:Jaspers .
-
-ex:Nozick
-    rdf:type ex:Philosopher ;
-    rdfs:label "Robert Nozick" ;
-    dct:date "1938"^^xsd:gYear ;
-    ex:believesIn ex:Libertarianism ;
-    ex:believesIn ex:MinimalState ;
-    ex:believesIn ex:SelfOwnership ;
-    ex:believesIn ex:EntitlementTheory ;
-    ex:believesIn ex:IndividualRights ;
-    ex:keyConcept ex:AnarchyStateAndUtopia ;
-    ex:keyConcept ex:EntitlementTheoryConcept ;
-    ex:keyConcept ex:MinimalStateConcept ;
-    ex:keyConcept ex:ExperienceMachine ;
-    ex:context ex:ColdWar ;
-    ex:context ex:NeoLiberalism ;
-    ex:context ex:PostWarLiberalism ;
-    ex:ideologicalCluster ex:Libertarianism ;
-    ex:influenced ex:Cohen ;
-    ex:influenced ex:Wolff ;
-    ex:influencedBy ex:Locke ;
-    ex:influencedBy ex:Rand .
-
-########## BELIEFS ##########
-
-ex:PhilosopherKing
-    rdfs:label "Philosopher King" ;
-    ex:description "The concept that the ideal ruler is a philosopher, wise and virtuous, who governs for the good of all rather than for personal gain. Central to Plato's vision of just governance in 'The Republic'." .
-
-ex:Forms
-    rdfs:label "Theory of Forms" ;
-    ex:description "Plato's metaphysical doctrine that the physical world is only a shadow of the true reality, which consists of perfect, immutable Forms or Ideas." .
-
-ex:Justice
-    rdfs:label "Justice" ;
-    ex:description "A central philosophical principle concerning fairness, law, and the right order of society and the soul. For Plato, justice means everyone performing the role for which they are best suited." .
-
-ex:VirtueEthics
-    rdfs:label "Virtue Ethics" ;
-    ex:description "A tradition of ethical thought that emphasizes character and virtue as the basis for moral judgment, rather than rules (deontology) or consequences (utilitarianism)." .
-
-ex:Education
-    rdfs:label "Education" ;
-    ex:description "The cultivation of knowledge and virtue, viewed by philosophers like Plato and Aristotle as essential for personal development and a just society." .
-
-ex:Polis
-    rdfs:label "Polis" ;
-    ex:description "The Greek city-state, regarded by Aristotle as the natural environment for realizing human potential and achieving the good life through civic participation." .
-
-ex:GoldenMean
-    rdfs:label "Golden Mean" ;
-    ex:description "Aristotle's ethical doctrine that virtue lies in moderation, avoiding extremes and finding the mean between deficiency and excess." .
-
-ex:NaturalLaw
-    rdfs:label "Natural Law" ;
-    ex:description "The idea that certain rights and moral values are inherent in human nature and discoverable through reason, independent of man-made law." .
-
-ex:ConstitutionalGovernment
-    rdfs:label "Constitutional Government" ;
-    ex:description "A form of government structured by laws and principles, often enshrined in a constitution, to protect individual rights and limit arbitrary rule." .
-
-ex:DivineLaw
-    rdfs:label "Divine Law" ;
-    ex:description "A moral law believed to be ordained by God, above human law, guiding ethical and social order, especially in Christian thought." .
-
-ex:TwoCities
-    rdfs:label "Two Cities" ;
-    ex:description "Augustine's doctrine that human society is divided between the City of God (the spiritual, eternal realm) and the City of Man (the earthly, temporal realm)." .
-
-ex:OriginalSin
-    rdfs:label "Original Sin" ;
-    ex:description "The Christian concept that all humans inherit a sinful nature due to Adam and Eve's disobedience, shaping views on human nature and politics." .
-
-ex:Predestination
-    rdfs:label "Predestination" ;
-    ex:description "The belief that God has foreordained all that will happen, especially regarding the salvation or damnation of souls; prominent in Augustine and Calvinist theology." .
-
-ex:JustWar
-    rdfs:label "Just War" ;
-    ex:description "A theory outlining conditions under which war can be morally justified, developed by Augustine and Aquinas, considering both reasons for going to war and conduct in war." .
-
-ex:CommonGood
-    rdfs:label "Common Good" ;
-    ex:description "The benefit or interests of all members of a community, often prioritized above individual interests in classical and Christian political thought." .
-
-ex:AuthoritarianSovereignty
-    rdfs:label "Authoritarian Sovereignty" ;
-    ex:description "Hobbes's idea that peace and security require an all-powerful, indivisible sovereign who can enforce laws and prevent civil disorder." .
-
-ex:SocialContract
-    rdfs:label "Social Contract" ;
-    ex:description "The theory that political authority derives from an implicit agreement among individuals to form a society and submit to collective rules for mutual benefit." .
-
-ex:StateOfNature
-    rdfs:label "State of Nature" ;
-    ex:description "A hypothetical condition before government and law, used by Hobbes, Locke, and Rousseau to explain the origins of society and authority." .
-
-ex:Materialism
-    rdfs:label "Materialism" ;
-    ex:description "The philosophical view that only matter exists and all phenomena, including thought and consciousness, can be explained by material interactions." .
-
-ex:NaturalRights
-    rdfs:label "Natural Rights" ;
-    ex:description "The idea that individuals possess fundamental rights (such as life, liberty, and property) by virtue of human nature, not granted by governments." .
-
-ex:Liberalism
-    rdfs:label "Liberalism" ;
-    ex:description "A political ideology emphasizing individual freedoms, equality before the law, and limits on government power." .
-
-ex:PropertyRights
-    rdfs:label "Property Rights" ;
-    ex:description "The principle that individuals have the right to own, use, and dispose of property, seen by Locke as fundamental to liberty and prosperity." .
-
-ex:ReligiousToleration
-    rdfs:label "Religious Toleration" ;
-    ex:description "The acceptance of religious diversity and the belief that individuals should be free to practice the religion of their choice without coercion." .
-
-ex:GeneralWill
-    rdfs:label "General Will" ;
-    ex:description "Rousseau's concept of the collective will of the people, oriented toward the common good, which is sovereign in a legitimate republic." .
-
-ex:PopularSovereignty
-    rdfs:label "Popular Sovereignty" ;
-    ex:description "The doctrine that the people are the ultimate source of political authority and have the right to shape government." .
-
-ex:NaturalGoodness
-    rdfs:label "Natural Goodness" ;
-    ex:description "Rousseau's belief that humans are inherently good and corrupted by society and institutions." .
-
-ex:DirectDemocracy
-    rdfs:label "Direct Democracy" ;
-    ex:description "A system where citizens themselves deliberate and decide on legislation, rather than through representatives." .
-
-ex:HistoricalMaterialism
-    rdfs:label "Historical Materialism" ;
-    ex:description "Marx's theory that history is driven by material economic forces, especially the means and relations of production." .
-
-ex:ClassStruggle
-    rdfs:label "Class Struggle" ;
-    ex:description "The ongoing conflict between social classes, particularly between capitalists and workers, seen by Marx as the engine of historical change." .
-
-ex:Communism
-    rdfs:label "Communism" ;
-    ex:description "A classless, stateless society in which the means of production are collectively owned and each works according to ability and receives according to need." .
-
-ex:Alienation
-    rdfs:label "Alienation" ;
-    ex:description "Marx's concept describing the estrangement of individuals from their labor, product, and fellow humans under capitalism." .
-
-ex:DialecticalMaterialism
-    rdfs:label "Dialectical Materialism" ;
-    ex:description "A Marxist approach to understanding reality, emphasizing change through the conflict of opposites in material conditions." .
-
-ex:Utilitarianism
-    rdfs:label "Utilitarianism" ;
-    ex:description "The ethical theory that the best action is the one that maximizes happiness or pleasure for the greatest number of people." .
-
-ex:IndividualLiberty
-    rdfs:label "Individual Liberty" ;
-    ex:description "The right of individuals to think, act, and express themselves freely, as long as they do not infringe on the rights of others." .
-
-ex:RepresentativeDemocracy
-    rdfs:label "Representative Democracy" ;
-    ex:description "A system of government where citizens elect representatives to make decisions on their behalf." .
-
-ex:WomenRights
-    rdfs:label "Women's Rights" ;
-    ex:description "The advocacy of equal rights and opportunities for women in political, economic, and social spheres." .
-
-ex:WillToPower
-    rdfs:label "Will to Power" ;
-    ex:description "Nietzsche's idea that the fundamental driving force in humans is a striving to assert and enhance one's power and influence." .
-
-ex:EternalRecurrence
-    rdfs:label "Eternal Recurrence" ;
-    ex:description "Nietzsche's metaphysical hypothesis that all events repeat themselves infinitely across time." .
-
-ex:MasterMorality
-    rdfs:label "Master Morality" ;
-    ex:description "Nietzsche's distinction between value systems: 'master morality' values pride and strength, while 'slave morality' values humility and sympathy." .
-
-ex:Perspectivism
-    rdfs:label "Perspectivism" ;
-    ex:description "Nietzsche's epistemological position that knowledge is always from a particular perspective, with no objective truths." .
-
-ex:SelfOvercoming
-    rdfs:label "Self-Overcoming" ;
-    ex:description "The process of overcoming one's own limitations and internalized values to achieve authentic selfhood, central in Nietzsche's philosophy." .
-
-ex:JusticeAsFairness
-    rdfs:label "Justice as Fairness" ;
-    ex:description "Rawls's conception of justice as equality of opportunity and fair distribution of goods, developed through a hypothetical social contract." .
-
-ex:OriginalPosition
-    rdfs:label "Original Position" ;
-    ex:description "Rawls's hypothetical starting point for social contract reasoning, where individuals choose principles of justice behind a 'veil of ignorance'." .
-
-ex:LiberalEgalitarianism
-    rdfs:label "Liberal Egalitarianism" ;
-    ex:description "A strand of liberal thought, exemplified by Rawls, advocating both individual liberty and the fair distribution of resources." .
-
-ex:PublicReason
-    rdfs:label "Public Reason" ;
-    ex:description "Rawls's idea that citizens in a pluralistic society should justify political decisions with reasons that others can reasonably accept." .
-
-ex:OverlappingConsensus
-    rdfs:label "Overlapping Consensus" ;
-    ex:description "Rawls's concept that people with different moral doctrines can still agree on the principles of justice governing society." .
-
-ex:PowerKnowledge
-    rdfs:label "Power/Knowledge" ;
-    ex:description "Foucault's thesis that power and knowledge are inseparable, as knowledge both reinforces and is shaped by power relations." .
-
-ex:Discipline
-    rdfs:label "Discipline" ;
-    ex:description "Foucault's analysis of how modern societies regulate behavior and normalize individuals through institutions and surveillance." .
-
-ex:Governmentality
-    rdfs:label "Governmentality" ;
-    ex:description "Foucault's term for the art of governing beyond the state, encompassing various forms of social control and self-regulation." .
-
-ex:Biopower
-    rdfs:label "Biopower" ;
-    ex:description "Foucault's concept of the ways in which the state exercises power over bodies and populations, especially through health and reproduction." .
-
-ex:ArchaeologyOfKnowledge
-    rdfs:label "Archaeology of Knowledge" ;
-    ex:description "Foucault's method of analyzing historical discourses to reveal the rules and structures underlying systems of thought." .
-
-ex:Action
-    rdfs:label "Action" ;
-    ex:description "Arendt's focus on active participation in public life as the means for individuals to realize freedom and create meaning." .
-
-ex:PublicRealm
-    rdfs:label "Public Realm" ;
-    ex:description "The sphere of life where individuals interact, debate, and act in concert, central to Arendt's conception of politics." .
-
-ex:Plurality
-    rdfs:label "Plurality" ;
-    ex:description "Arendt's idea that the presence of diverse, unique individuals is the foundation of political action and freedom." .
-
-ex:Totalitarianism
-    rdfs:label "Totalitarianism" ;
-    ex:description "A form of government characterized by centralized control, the eradication of pluralism, and the suppression of individual freedom." .
-
-ex:Revolution
-    rdfs:label "Revolution" ;
-    ex:description "A fundamental change in political power or organizational structures, often involving mass mobilization and a break from the past." .
-
-ex:Libertarianism
-    rdfs:label "Libertarianism" ;
-    ex:description "A political philosophy that stresses individual liberty, free markets, and minimal state intervention." .
-
-ex:MinimalState
-    rdfs:label "Minimal State" ;
-    ex:description "Nozick's ideal of a government limited to protecting rights against force, theft, and fraud—no further." .
-
-ex:SelfOwnership
-    rdfs:label "Self-Ownership" ;
-    ex:description "The principle that individuals own their bodies and lives, and thus have ultimate authority over themselves." .
-
-ex:EntitlementTheory
-    rdfs:label "Entitlement Theory" ;
-    ex:description "Nozick's theory that a distribution of goods is just if everyone is entitled to what they have, as a result of fair acquisition and transfer." .
-
-ex:IndividualRights
-    rdfs:label "Individual Rights" ;
-    ex:description "Rights held by individuals as opposed to the collective, considered inviolable in most liberal and libertarian traditions." .
-
-########## KEY CONCEPTS ##########
-# Most are already literal strings in the data; you can map these to short explanations as needed.
-# Here are a few important ones for reference:
-
-ex:TabulaRasa
-    rdfs:label "Tabula Rasa" ;
-    ex:description "Locke's idea that the mind is a blank slate at birth and knowledge comes from experience and perception." .
-
-########## IDEOLOGICAL CLUSTERS ##########
-
-ex:ClassicalRepublicanism
-    rdfs:label "Classical Republicanism" ;
-    ex:description "A tradition emphasizing civic virtue, the common good, and active participation in public life, rooted in the political thought of ancient Greece and Rome." .
-
-ex:ChristianPoliticalThought
-    rdfs:label "Christian Political Thought" ;
-    ex:description "Political ideas derived from Christian theology, including concepts of divine law, natural law, and the just society." .
-
-ex:Realism
-    rdfs:label "Realism" ;
-    ex:description "A political perspective that prioritizes power, security, and practical concerns over ideals or ethical norms." .
-
-ex:Liberalism
-    rdfs:label "Liberalism" ;
-    ex:description "A doctrine centered on individual rights, rule of law, and limits to governmental authority; underpins much of modern Western political thought." .
-
-ex:Republicanism
-    rdfs:label "Republicanism" ;
-    ex:description "A tradition emphasizing self-government, mixed constitutions, and the rule of law, often contrasted with monarchy." .
-
-ex:Communism
-    rdfs:label "Communism" ;
-    ex:description "A classless, stateless social order based on common ownership of the means of production, as theorized by Marx and Engels." .
-
-ex:Existentialism
-    rdfs:label "Existentialism" ;
-    ex:description "A philosophy focusing on individual freedom, authenticity, and the search for meaning in an indifferent or absurd world." .
-
-ex:PostModernism
-    rdfs:label "Post-Modernism" ;
-    ex:description "A set of critical approaches rejecting absolute truths, emphasizing the relativity of knowledge, power relations, and the deconstruction of social narratives." .
-
-ex:Libertarianism
-    rdfs:label "Libertarianism" ;
-    ex:description "An ideology advocating maximum personal freedom and minimal state interference in the lives of individuals." .
-
-########## HISTORICAL CONTEXTS ##########
-
-ex:ClassicalAthens
-    rdfs:label "Classical Athens" ;
-    ex:description "The period in ancient Greek history (5th–4th century BCE) marked by democracy, philosophy, and the flourishing of the arts in Athens." .
-
-ex:ClassicalGreece
+    rdfs:comment "A short description of a concept, belief, philosopher, or entity." ;
+    rdfs:label "description" .
+
+###########################################################
+# Classes
+###########################################################
+
+ex:philosopher rdf:type owl:Class ;
+    rdfs:label "Philosopher" ;
+    ex:description "A thinker who develops, critiques, or influences major ideas or systems in political philosophy." .
+
+ex:belief rdf:type owl:Class ;
+    rdfs:subClassOf ex:concept ;
+    owl:disjointWith ex:governmentSystem , ex:philosopher , ex:work ;
+    rdfs:label "Belief" ;
+    ex:description "A central doctrine or idea held by philosophers about human nature, society, law, or the state." .
+
+ex:governmentSystem rdf:type owl:Class ;
+    rdfs:subClassOf ex:concept ;
+    owl:disjointWith ex:philosopher , ex:work ;
+    rdfs:label "Government System" ;
+    ex:description "A system or structure of political organization or rule." .
+
+ex:historicalContext rdf:type owl:Class ;
+    rdfs:label "Historical Context" ;
+    ex:description "A period or environment that shapes philosophical thought." .
+
+ex:concept rdf:type owl:Class ;
+    rdfs:label "Concept" ;
+    ex:description "A general or foundational idea in philosophy, such as liberty, justice, or authority." .
+
+ex:principle rdf:type owl:Class ;
+    rdfs:subClassOf ex:concept ;
+    rdfs:label "Principle" ;
+    ex:description "A fundamental proposition or value that forms the basis for beliefs or systems." .
+
+ex:work rdf:type owl:Class ;
+    rdfs:label "Work" ;
+    ex:description "A philosophical text, treatise, or book." .
+
+###########################################################
+# Individuals: Historical Contexts
+###########################################################
+
+ex:classicalGreece rdf:type ex:historicalContext ;
     rdfs:label "Classical Greece" ;
-    ex:description "The era of Greek civilization from the 8th to the 2nd century BCE, notable for achievements in philosophy, science, and politics." .
+    ex:description "The era of Greek history from the 5th to 4th century BCE, marked by the flourishing of philosophy." .
 
-ex:PeloponnesianWar
-    rdfs:label "Peloponnesian War" ;
-    ex:description "A devastating conflict (431–404 BCE) between Athens and Sparta that reshaped the ancient Greek world." .
-
-ex:MacedonianEmpire
-    rdfs:label "Macedonian Empire" ;
-    ex:description "The empire built by Alexander the Great, extending Greek culture across a vast territory from Greece to India (336–323 BCE)." .
-
-ex:LateAntiquity
-    rdfs:label "Late Antiquity" ;
-    ex:description "The transitional era (200–700 CE) from classical civilization to the Middle Ages, marked by the rise of Christianity and the decline of the Roman Empire." .
-
-ex:FallOfRome
-    rdfs:label "Fall of Rome" ;
-    ex:description "The period of crisis and fragmentation (376–476 CE) that ended the Western Roman Empire." .
-
-ex:HighMiddleAges
-    rdfs:label "High Middle Ages" ;
-    ex:description "A period of European history (1000–1300 CE) characterized by population growth, urbanization, and the flourishing of medieval thought." .
-
-ex:Scholasticism
-    rdfs:label "Scholasticism" ;
-    ex:description "A method of critical thought dominant in medieval universities, integrating Christian theology with classical philosophy." .
-
-ex:EnglishCivilWar
-    rdfs:label "English Civil War" ;
-    ex:description "A conflict (1642–1651) between Parliamentarians and Royalists in England, leading to the temporary overthrow of the monarchy." .
-
-ex:AgeOfAbsolutism
-    rdfs:label "Age of Absolutism" ;
-    ex:description "A period (17th–18th century) when absolute monarchies dominated Europe, characterized by centralized power and limited political freedom." .
-
-ex:ScientificRevolution
-    rdfs:label "Scientific Revolution" ;
-    ex:description "A period (16th–17th centuries) of radical change in scientific understanding, laying the foundations of modern science." .
-
-ex:Enlightenment
+ex:enlightenment rdf:type ex:historicalContext ;
     rdfs:label "Enlightenment" ;
-    ex:description "An intellectual movement (late 17th–18th centuries) emphasizing reason, science, individual rights, and skepticism toward traditional authority." .
+    ex:description "The European intellectual movement of the 17th-18th centuries, emphasizing reason and individual rights." .
 
-ex:AgeOfDiscovery
-    rdfs:label "Age of Discovery" ;
-    ex:description "An era (15th–17th centuries) of global exploration, leading to contact between Europe and the Americas, Africa, and Asia." .
+ex:englishCivilWar rdf:type ex:historicalContext ;
+    rdfs:label "English Civil War" ;
+    ex:description "A conflict (1642–1651) in England between Parliamentarians and Royalists." .
 
-ex:AgeOfReason
-    rdfs:label "Age of Reason" ;
-    ex:description "The 18th-century period when reason was advocated as the primary source of authority and legitimacy." .
-
-ex:IndustrialRevolution
+ex:industrialRevolution rdf:type ex:historicalContext ;
     rdfs:label "Industrial Revolution" ;
-    ex:description "A period (late 18th–19th centuries) of major industrialization that transformed economies, societies, and labor." .
+    ex:description "The period of rapid industrialization and social change in Europe (late 18th–19th centuries)." .
 
-ex:VictorianEra
-    rdfs:label "Victorian Era" ;
-    ex:description "The period of Queen Victoria's reign (1837–1901), marked by industrial progress and strict social norms in Britain." .
+ex:fallOfRome rdf:type ex:historicalContext ;
+    rdfs:label "Fall of Rome" ;
+    ex:description "The collapse of the Western Roman Empire, 5th century CE." .
 
-ex:ReformMovement
-    rdfs:label "Reform Movement" ;
-    ex:description "Social and political campaigns (19th century) aimed at correcting injustices and expanding rights, particularly in Britain and America." .
+###########################################################
+# Individuals: Core Principles and Concepts
+###########################################################
 
-ex:Modernity
-    rdfs:label "Modernity" ;
-    ex:description "The era (19th–mid-20th century) marked by industrialization, secularization, and rapid social change." .
+ex:liberty rdf:type ex:concept ;
+    rdfs:label "Liberty" ;
+    ex:description "The state or condition of being free from oppressive restrictions." .
 
-ex:FinDeSiecle
-    rdfs:label "Fin de Siècle" ;
-    ex:description "The end of the 19th century (1880–1914), a period of cultural and social uncertainty and artistic innovation in Europe." .
+ex:authority rdf:type ex:concept ;
+    rdfs:label "Authority" ;
+    ex:description "The power or right to give orders, make decisions, and enforce obedience." .
 
-ex:DeclineOfReligion
-    rdfs:label "Decline of Religion" ;
-    ex:description "The process, especially in the 19th and 20th centuries, of diminishing religious authority and belief in Western societies." .
+ex:justice rdf:type ex:belief ;
+    rdfs:label "Justice" ;
+    ex:description "The principle of fairness in the protection of rights and punishment of wrongs." .
 
-ex:ColdWar
-    rdfs:label "Cold War" ;
-    ex:description "The geopolitical rivalry (1947–1991) between the United States and the Soviet Union, shaping world politics and ideology." .
+ex:virtueEthics rdf:type ex:concept ;
+    rdfs:label "Virtue Ethics" ;
+    ex:description "An ethical theory emphasizing moral character and virtues over rules or consequences." .
 
-ex:PostWarLiberalism
-    rdfs:label "Post-War Liberalism" ;
-    ex:description "The mid-20th-century expansion of welfare states and liberal democracies in the West after World War II." .
+ex:stateOfNature rdf:type ex:principle ;
+    rdfs:label "State of Nature" ;
+    ex:description "A hypothetical condition of humanity before the formation of societies or government." .
 
-ex:CivilRightsMovement
-    rdfs:label "Civil Rights Movement" ;
-    ex:description "The struggle (1950s–60s) in the United States for the legal and social equality of African Americans and other marginalized groups." .
+ex:socialContract rdf:type ex:belief ;
+    rdfs:label "Social Contract" ;
+    ex:description "The theory that legitimate political authority arises from an implicit contract among individuals." .
 
-ex:PostModernity
-    rdfs:label "Post-Modernity" ;
-    ex:description "The late 20th-century era characterized by skepticism toward universal narratives, the fragmentation of identity, and rapid technological change." .
+ex:generalWill rdf:type ex:belief ;
+    rdfs:label "General Will" ;
+    ex:description "Rousseau's idea of the collective will of the people aimed at the common good." .
 
-ex:PostStructuralism
-    rdfs:label "Post-Structuralism" ;
-    ex:description "A critical movement (1960s–80s) challenging fixed structures in language, culture, and society, associated with thinkers like Foucault and Derrida." .
+ex:alienation rdf:type ex:belief ;
+    rdfs:label "Alienation" ;
+    ex:description "Marx's concept of the estrangement of people from aspects of their human nature due to capitalism." .
 
-ex:May1968
-    rdfs:label "May 1968" ;
-    ex:description "A series of protests and strikes in France that symbolized the upheavals and cultural shifts of the late 1960s." .
+ex:classStruggle rdf:type ex:belief ;
+    rdfs:label "Class Struggle" ;
+    ex:description "The conflict between social classes, especially capitalists and workers, driving historical change." .
 
-ex:Totalitarianism
+ex:materialism rdf:type ex:belief ;
+    rdfs:label "Materialism" ;
+    ex:description "The view that only physical matter exists and all phenomena are results of material interactions." .
+
+ex:naturalLaw rdf:type ex:belief ;
+    rdfs:label "Natural Law" ;
+    ex:description "A body of unchanging moral principles regarded as a basis for all human conduct." .
+
+ex:naturalRights rdf:type ex:belief ;
+    rdfs:label "Natural Rights" ;
+    ex:description "Rights that individuals have inherently, independent of laws or governments." .
+
+ex:individualLiberty rdf:type ex:concept ;
+    rdfs:label "Individual Liberty" ;
+    ex:description "Freedom of the individual to act as they choose, as long as they do not infringe on others' rights." .
+
+ex:individualRights rdf:type ex:belief ;
+    rdfs:label "Individual Rights" ;
+    ex:description "The rights held by individuals, especially as protected against the state." .
+
+ex:propertyRights rdf:type ex:belief ;
+    rdfs:label "Property Rights" ;
+    ex:description "The legal rights to own, use, and dispose of property." .
+
+ex:liberalism rdf:type ex:belief ;
+    rdfs:label "Liberalism" ;
+    ex:description "A political philosophy emphasizing individual rights, civil liberties, and government by consent." .
+
+ex:libertarianism rdf:type ex:belief ;
+    rdfs:label "Libertarianism" ;
+    ex:description "An ideology advocating minimal state intervention in the lives of citizens." ;
+    ex:subClassOf ex:liberalism .
+
+ex:socialism rdf:type ex:belief ;
+    rdfs:label "Socialism" ;
+    ex:description "An economic and political system based on collective or governmental ownership of production." .
+
+ex:consequentialism rdf:type ex:belief ;
+    rdfs:label "Consequentialism" ;
+    ex:description "The view that the morality of an action is determined solely by its consequences." .
+
+ex:utilitarianism rdf:type ex:belief ;
+    rdfs:label "Utilitarianism" ;
+    ex:description "The ethical doctrine that the best action is the one that maximizes happiness for the greatest number." ;
+    ex:basedOnPrinciple ex:consequentialism .
+
+ex:moralPhilosophy rdf:type ex:belief ;
+    rdfs:label "Moral Philosophy" ;
+    ex:description "The study of what is right and wrong in human conduct." .
+
+ex:realism rdf:type ex:belief ;
+    rdfs:label "Realism" ;
+    ex:description "A political view that prioritizes power and national interest over ideology or ethics." .
+
+ex:metaphysics rdf:type ex:belief ;
+    rdfs:label "Metaphysics" ;
+    ex:description "The branch of philosophy concerned with the fundamental nature of reality." .
+
+ex:divineLaw rdf:type ex:belief ;
+    rdfs:label "Divine Law" ;
+    ex:description "Law believed to be set by a divine authority, often regarded as higher than human law." .
+
+ex:naturalGoodness rdf:type ex:belief ;
+    rdfs:label "Natural Goodness" ;
+    ex:description "Rousseau's belief that humans are born inherently good but corrupted by society." .
+
+ex:popularSovereignty rdf:type ex:belief ;
+    rdfs:label "Popular Sovereignty" ;
+    ex:description "The doctrine that the people are the ultimate source of political power." .
+
+ex:forms rdf:type ex:belief ;
+    rdfs:label "Theory of Forms" ;
+    ex:description "Plato's doctrine that the physical world is a shadow of the true reality of ideal forms." .
+
+ex:categoricalImperative rdf:type ex:concept ;
+    rdfs:label "Categorical Imperative" ;
+    ex:description "Kant's foundational moral principle: act only on maxims you would will as universal law." .
+
+ex:philosopherKing rdf:type ex:governmentSystem ;
+    rdfs:label "Philosopher King" ;
+    ex:description "Plato's ideal ruler: a wise and virtuous philosopher who governs for the good of all." .
+
+###########################################################
+# Individuals: Government Systems
+###########################################################
+
+ex:constitutionalGovernment rdf:type ex:governmentSystem ;
+    rdfs:label "Constitutional Government" ;
+    ex:description "A government whose power is defined and limited by law." .
+
+ex:authoritarianSovereignty rdf:type ex:governmentSystem ;
+    rdfs:label "Authoritarian Sovereignty" ;
+    ex:description "Hobbes's idea of an indivisible, all-powerful sovereign necessary for order." .
+
+ex:directDemocracy rdf:type ex:governmentSystem ;
+    rdfs:label "Direct Democracy" ;
+    ex:description "A system in which citizens directly participate in decision-making." .
+
+ex:representativeDemocracy rdf:type ex:governmentSystem ;
+    rdfs:label "Representative Democracy" ;
+    ex:description "A system in which citizens elect representatives to make laws and policies." .
+
+ex:polis rdf:type ex:governmentSystem ;
+    rdfs:label "Polis" ;
+    ex:description "The Greek city-state; Aristotle's model for realizing human potential through civic life." .
+
+ex:communism rdf:type ex:governmentSystem ;
+    rdfs:label "Communism" ;
+    ex:description "A classless, stateless society where property is collectively owned." .
+
+ex:totalitarianism rdf:type ex:governmentSystem ;
     rdfs:label "Totalitarianism" ;
-    ex:description "A political system in which the state recognizes no limits to its authority and seeks to regulate every aspect of public and private life." .
+    ex:description "A system where the state seeks to control every aspect of public and private life." .
 
-ex:PostWarThought
-    rdfs:label "Post-War Thought" ;
-    ex:description "Intellectual movements after World War II that reflected on totalitarianism, human rights, and the meaning of modernity." .
+###########################################################
+# Individuals: Works (select canonical examples)
+###########################################################
 
-ex:NeoLiberalism
-    rdfs:label "Neo-Liberalism" ;
-    ex:description "A late 20th-century resurgence of free-market economics, deregulation, and a retreat from welfare state principles." .
+ex:leviathan rdf:type ex:work ;
+    rdfs:label "Leviathan" ;
+    ex:description "Hobbes's most famous work, setting out the necessity of an all-powerful sovereign." ;
+    ex:exampleOf ex:authoritarianSovereignty .
 
-########## DISJOINTNESS AXIOMS ##########
+ex:theRepublic rdf:type ex:work ;
+    rdfs:label "The Republic" ;
+    ex:description "Plato's major dialogue on justice, the ideal state, and the philosopher king." ;
+    ex:exampleOf ex:justice , ex:philosopherKing .
 
-# Core class disjointness
-ex:Philosopher owl:disjointWith ex:GovernmentSystem, ex:Belief, ex:Concept, ex:Era, ex:Work .
-ex:Belief owl:disjointWith ex:GovernmentSystem, ex:Era, ex:Work, ex:Method .
-ex:Concept owl:disjointWith ex:Era, ex:Work, ex:Method, ex:GovernmentSystem .
-ex:Era owl:disjointWith ex:Work, ex:Method, ex:GovernmentSystem .
-ex:Work owl:disjointWith ex:Method, ex:GovernmentSystem .
-ex:Method owl:disjointWith ex:GovernmentSystem .
+###########################################################
+# Individuals: Philosophers (all existing, with label/desc, links)
+###########################################################
 
-# Category disjointness
-ex:Branch owl:disjointWith ex:Problem, ex:Solution, ex:Position .
-ex:Problem owl:disjointWith ex:Position .
-ex:Theory owl:disjointWith ex:Method, ex:Argument .
+ex:socrates rdf:type ex:philosopher ;
+    rdfs:label "Socrates" ;
+    ex:description "Ancient Greek philosopher foundational for Western moral philosophy." ;
+    ex:livedDuring ex:classicalGreece ;
+    ex:believesIn ex:moralPhilosophy , ex:justice ;
+    ex:criticizes ex:materialism .
 
-########## PROPERTY CHARACTERISTICS ##########
+ex:plato rdf:type ex:philosopher ;
+    rdfs:label "Plato" ;
+    ex:description "Greek philosopher, student of Socrates, author of the Theory of Forms and political utopian ideas." ;
+    ex:livedDuring ex:classicalGreece ;
+    ex:influencedBy ex:socrates ;
+    ex:believesIn ex:forms , ex:justice , ex:philosopherKing ;
+    ex:criticizes ex:directDemocracy ;
+    ex:developedConcept ex:forms .
 
-# Symmetric properties
-ex:debatesWith rdf:type owl:SymmetricProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:Philosopher .
+ex:aristotle rdf:type ex:philosopher ;
+    rdfs:label "Aristotle" ;
+    ex:description "Greek philosopher, student of Plato, known for virtue ethics and his theory of the polis." ;
+    ex:livedDuring ex:classicalGreece ;
+    ex:influencedBy ex:plato ;
+    ex:believesIn ex:constitutionalGovernment , ex:naturalLaw , ex:polis , ex:virtueEthics .
 
-ex:collaboratesWith rdf:type owl:SymmetricProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:Philosopher .
+ex:thucydides rdf:type ex:philosopher ;
+    rdfs:label "Thucydides" ;
+    ex:description "Ancient Greek historian and theorist of political realism." ;
+    ex:livedDuring ex:classicalGreece ;
+    ex:believesIn ex:realism .
 
-# Functional properties
-ex:birthYear rdf:type owl:FunctionalProperty .
-ex:primarySchool rdf:type owl:FunctionalProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:School .
+:grotius rdf:type ex:philosopher ;
+    rdfs:label "Grotius" ;
+    ex:description "Dutch philosopher and founder of international law, advocate of natural law and rights." ;
+    ex:believesIn ex:naturalLaw , ex:individualRights ;
+    ex:livedDuring ex:enlightenment .
 
-########## PROPERTY CHAINS ##########
+:cicero rdf:type ex:philosopher ;
+    rdfs:label "Cicero" ;
+    ex:description "Roman statesman and philosopher who advanced ideas of justice, natural law, and republican government." ;
+    ex:believesIn ex:naturalLaw , ex:justice , ex:individualRights ;
+    ex:livedDuring ex:fallOfRome .
 
-# Indirect influence chain
-[ rdf:type owl:PropertyChain ;
-  owl:propertyChainAxiom (ex:influenced ex:influenced)
-] rdfs:subPropertyOf ex:indirectlyInfluenced .
+:machiavelli rdf:type ex:philosopher ;
+    rdfs:label "Machiavelli" ;
+    ex:description "Renaissance political theorist, author of The Prince, pioneer of political realism." ;
+    ex:believesIn ex:realism ;
+    ex:livedDuring ex:enlightenment .
 
-# School membership inheritance
-[ rdf:type owl:PropertyChain ;
-  owl:propertyChainAxiom (ex:memberOf ex:subSchoolOf)
-] rdfs:subPropertyOf ex:memberOf .
+ex:hobbes rdf:type ex:philosopher ;
+    rdfs:label "Hobbes" ;
+    ex:description "English philosopher, author of Leviathan, foundational for social contract and sovereign authority." ;
+    ex:believesIn ex:authoritarianSovereignty , ex:materialism , ex:naturalLaw , ex:socialContract , ex:stateOfNature ;
+    ex:criticizes ex:popularSovereignty ;
+    ex:livedDuring ex:englishCivilWar ;
+    ex:developedConcept ex:authoritarianSovereignty .
 
-########## SWRL RULES (as comments) ##########
+ex:locke rdf:type ex:philosopher ;
+    rdfs:label "Locke" ;
+    ex:description "English Enlightenment philosopher, founder of liberalism and modern theories of rights." ;
+    ex:believesIn ex:liberalism , ex:naturalRights , ex:propertyRights , ex:socialContract , ex:individualLiberty , ex:individualRights , ex:popularSovereignty ;
+    ex:criticizes ex:authoritarianSovereignty ;
+    ex:livedDuring ex:enlightenment ;
+    ex:developedConcept ex:naturalRights .
 
-###
-# Philosophical disagreement rule:
-# Philosopher(?x) ∧ Philosopher(?y) ∧ believesIn(?x, ?b1) ∧ criticizes(?y, ?b1) 
-# → philosophicallyDisagreesWith(?x, ?y)
-###
+ex:montesquieu rdf:type ex:philosopher ;
+    rdfs:label "Montesquieu" ;
+    ex:description "French Enlightenment thinker, known for separation of powers and liberty." ;
+    ex:believesIn ex:constitutionalGovernment , ex:individualLiberty ;
+    ex:livedDuring ex:enlightenment .
 
-###
-# School influence rule:
-# Philosopher(?x) ∧ School(?s) ∧ memberOf(?x, ?s) ∧ Philosopher(?y) ∧ founded(?y, ?s)
-# → influencedBy(?x, ?y)
-###
+ex:rousseau rdf:type ex:philosopher ;
+    rdfs:label "Rousseau" ;
+    ex:description "French philosopher who theorized the general will and direct democracy." ;
+    ex:believesIn ex:directDemocracy , ex:generalWill , ex:naturalGoodness , ex:popularSovereignty , ex:socialContract ;
+    ex:livedDuring ex:enlightenment ;
+    ex:criticizes ex:authoritarianSovereignty .
 
-########## ADDITIONAL ANNOTATIONS ##########
+ex:bentham rdf:type ex:philosopher ;
+    rdfs:label "Bentham" ;
+    ex:description "English philosopher and social reformer, founder of utilitarianism." ;
+    ex:believesIn ex:consequentialism , ex:utilitarianism ;
+    ex:livedDuring ex:industrialRevolution ;
+    ex:developedConcept ex:utilitarianism .
 
-ex:indirectlyInfluenced rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:Philosopher ;
-    rdfs:label "Indirectly Influenced" ;
-    ex:description "Indicates philosophical influence through intermediary thinkers." .
+ex:mill rdf:type ex:philosopher ;
+    rdfs:label "Mill" ;
+    ex:description "English philosopher, proponent of liberty, utilitarianism, and representative democracy." ;
+    ex:believesIn ex:individualLiberty , ex:liberalism , ex:representativeDemocracy , ex:utilitarianism , ex:libertarianism ;
+    ex:livedDuring ex:industrialRevolution ;
+    ex:influencedBy ex:bentham ;
+    ex:criticizes ex:authoritarianSovereignty .
 
-ex:subSchoolOf rdf:type owl:ObjectProperty, owl:TransitiveProperty ;
-    rdfs:domain ex:School ;
-    rdfs:range ex:School ;
-    rdfs:label "Sub-school Of" ;
-    ex:description "Indicates hierarchical relationships between philosophical schools." .
+ex:kant rdf:type ex:philosopher ;
+    rdfs:label "Kant" ;
+    ex:description "German philosopher, creator of the categorical imperative and theorist of moral autonomy." ;
+    ex:believesIn ex:individualRights , ex:moralPhilosophy , ex:metaphysics , ex:liberalism ;
+    ex:livedDuring ex:enlightenment ;
+    ex:developedConcept ex:categoricalImperative .
 
-ex:memberOf rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:School ;
-    rdfs:label "Member Of" ;
-    ex:description "Indicates a philosopher's affiliation with a philosophical school." .
+ex:hegel rdf:type ex:philosopher ;
+    rdfs:label "Hegel" ;
+    ex:description "German idealist philosopher, developed dialectical method and concept of history." ;
+    ex:believesIn ex:metaphysics ;
+    ex:livedDuring ex:industrialRevolution .
 
-ex:founded rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:School ;
-    rdfs:label "Founded" ;
-    ex:description "Indicates that a philosopher founded a particular school of thought." .
+ex:marx rdf:type ex:philosopher ;
+    rdfs:label "Marx" ;
+    ex:description "German philosopher and economist, founder of historical materialism and socialism." ;
+    ex:believesIn ex:alienation , ex:classStruggle , ex:communism , ex:socialism ;
+    ex:criticizes ex:liberalism ;
+    ex:influencedBy ex:hegel ;
+    ex:livedDuring ex:industrialRevolution ;
+    ex:developedConcept ex:classStruggle .
 
-ex:criticizes rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:Belief ;
-    rdfs:label "Criticizes" ;
-    ex:description "Indicates that a philosopher explicitly criticizes a particular belief or concept." .
+ex:arendt rdf:type ex:philosopher ;
+    rdfs:label "Arendt" ;
+    ex:description "German-American political theorist, analyst of totalitarianism and defender of liberty." ;
+    ex:believesIn ex:totalitarianism , ex:individualLiberty , ex:liberalism ;
+    ex:criticizes ex:totalitarianism ;
+    ex:livedDuring ex:industrialRevolution .
 
-ex:philosophicallyDisagreesWith rdf:type owl:ObjectProperty, owl:SymmetricProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:Philosopher ;
-    rdfs:label "Philosophically Disagrees With" ;
-    ex:description "Indicates fundamental philosophical disagreement between two thinkers." .
+ex:rawls rdf:type ex:philosopher ;
+    rdfs:label "Rawls" ;
+    ex:description "American philosopher, author of A Theory of Justice and defender of fairness and liberal rights." ;
+    ex:believesIn ex:liberalism , ex:individualRights , ex:justice ;
+    ex:influencedBy ex:kant , ex:mill ;
+    ex:livedDuring ex:industrialRevolution .
 
-ex:influencedBy rdf:type owl:ObjectProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:Philosopher ;
-    rdfs:label "Influenced By" ;
-    ex:description "Indicates direct philosophical influence from one thinker to another." .
+###########################################################
+# Cross-Links Between Concepts/Beliefs/Government Systems
+###########################################################
 
-ex:contemporaryOf rdf:type owl:ObjectProperty, owl:SymmetricProperty ;
-    rdfs:domain ex:Philosopher ;
-    rdfs:range ex:Philosopher ;
-    rdfs:label "Contemporary Of" ;
-    ex:description "Indicates philosophers who lived and worked in the same historical period." .
+ex:liberty ex:contrastsWith ex:authority .
+ex:authoritarianSovereignty ex:contrastsWith ex:popularSovereignty .
+ex:liberalism ex:contrastsWith ex:authoritarianSovereignty .
+ex:socialism ex:contrastsWith ex:liberalism .
+ex:virtueEthics ex:contrastsWith ex:utilitarianism .
+ex:directDemocracy ex:contrastsWith ex:authoritarianSovereignty .
+ex:constitutionalGovernment ex:contrastsWith ex:totalitarianism .
+ex:individualLiberty ex:subClassOf ex:liberty .
+ex:libertarianism ex:subClassOf ex:liberalism .
+ex:utilitarianism ex:basedOnPrinciple ex:consequentialism .
+ex:naturalRights ex:basedOnPrinciple ex:naturalLaw .
+
